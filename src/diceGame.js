@@ -11,10 +11,6 @@ function diceGame() {
     let intervalId = null;
     let onTickCallback = null;
 
-    function setOnTick(onTick) {
-        onTickCallback = onTick       
-    }
-
     function isGameOver() {
         return (timeLeft <= 0)
     }
@@ -91,8 +87,6 @@ function diceGame() {
         onTickCallback = callback;
       };
     
-
     return { newGame, getDice, submitWord, wordsFound, numWordsFound, score, isGameOver, onTick }
-
 }
 export { diceGame }

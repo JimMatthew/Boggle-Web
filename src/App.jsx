@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import './App.css'
 import { Box, GridItem } from '@chakra-ui/react'
 import { SimpleGrid, Grid, Button, Input, Text, Container } from '@chakra-ui/react'
-import Die from './components/Die'
 import { diceGame } from './diceGame'
 import { dicePressedHandler } from './dicePressedHandler'
 
@@ -46,7 +45,6 @@ function App() {
   };
 
   const handleSubmit = () => {
-    
       game.submitWord(currWord)
       setCurrWord("")
       setPressed(( Array.from({ length: 16 }, () => false)))
@@ -113,20 +111,6 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
 
     </Box>
   )
-}
-
-// Render the random letters in a 4x4 grid
-function RandomLetterGrid({ letters, clicked, setClicked }) {
-    
-  return (
-    <Grid borderWidth={'1px'} templateColumns="repeat(4, 1fr)" gap={2} width={"90vw"} maxWidth="600px" aspectRatio={1} >
-      {letters.map((letter, index) => (
-        <Die key={index} letter={letter} clicked={clicked[index]} setClicked={() => setClicked(index)} >
-          {letter}
-        </Die>
-      ))}
-    </Grid>
-  );
 }
 
 export default App
