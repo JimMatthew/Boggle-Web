@@ -17,11 +17,14 @@ function diceGame() {
         return dice.getDice()
     }
 
-
     function submitWord(word) {
-        if (dict.wordsExists(word)) {
-            scorecard.addWord(word)
-            return true
+        if (!scorecard.isWordFound(word)){
+            if (dict.wordsExists(word)) {
+                scorecard.addWord(word)
+                return true
+            } else {
+                return false
+            }
         } else {
             return false
         }

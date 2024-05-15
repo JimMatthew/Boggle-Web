@@ -6,12 +6,22 @@ function scoreCard() {
     let words = []
 
     function addWord(word) {
+        score = score + computeScore(word)
         words.push(word)
         numwords++
+        console.log(words)
     }
 
     function getWords() {
         return words
+    }
+
+    function isWordFound(word) {
+        return words.includes(word)
+    }
+
+    function getScore() {
+        return score
     }
 
     function getNumWords() {
@@ -24,7 +34,24 @@ function scoreCard() {
         words = [];
     }
 
-    return { addWord, getNumWords, getWords, reset }
+    function computeScore(word) {
+        const l = word.length
+        let s = 0;
+        if (l > 7) {
+            s = 11
+        } else if (l > 6) {
+            s = 5
+        } else if (l > 5) {
+            s = 3
+        } else if (l > 4) {
+            s = 2
+        } else if (l > 2) {
+            s = 1
+        }
+        return s
+    }
+
+    return { addWord, getNumWords, getWords, reset, isWordFound, getScore }
 }
 
 export { scoreCard }

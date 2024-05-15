@@ -2,6 +2,7 @@ function dicePressedHandler() {
 
     let pressed = []
     const SIZE = 4
+
     function press(die) {
         pressed.push(die)
     }
@@ -10,10 +11,21 @@ function dicePressedHandler() {
         pressed = []
     }
 
-    function isPressed(die) {
-        return pressed.includes(die)
+    function slicepressed(die) {
+        pressed = pressed.slice(0, die)
     }
 
+    function isPressed(die) {
+        console.log(pressed.indexOf(die))
+        return pressed.indexOf(die)
+    }
+
+    function getPressed() {
+        return pressed
+    }
+
+    // function to determine if this die is in a valid
+    // position in reference to the last die, if one exists
     function isNextTo(die) {
         if (pressed.length === 0) {
           return true
@@ -35,6 +47,6 @@ function dicePressedHandler() {
         );
       }
 
-      return { press, clear, isPressed, isNextTo }
+      return { press, clear, isPressed, isNextTo, slicepressed, getPressed }
 }
 export { dicePressedHandler }
