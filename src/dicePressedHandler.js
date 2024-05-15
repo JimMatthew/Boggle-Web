@@ -1,5 +1,7 @@
-function dicePressedHandler() {
+import { mapIndexesToBooleans } from "./mapIndextoBool"
 
+function dicePressedHandler() {
+    
     let pressed = []
     const SIZE = 4
 
@@ -22,6 +24,10 @@ function dicePressedHandler() {
 
     function getPressed() {
         return pressed
+    }
+
+    function getPressedAsBoolArr(){
+      return mapIndexesToBooleans(pressed)
     }
 
     // function to determine if this die is in a valid
@@ -47,6 +53,6 @@ function dicePressedHandler() {
         );
       }
 
-      return { press, clear, isPressed, isNextTo, slicepressed, getPressed }
+      return { press, clear, isPressed, isNextTo, slicepressed, getPressed, getPressedAsBoolArr }
 }
 export { dicePressedHandler }

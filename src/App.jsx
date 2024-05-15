@@ -6,7 +6,6 @@ import { SimpleGrid, Grid, Button, Input, Text, Container } from '@chakra-ui/rea
 import Die from './components/Die'
 import { diceGame } from './diceGame'
 import { dicePressedHandler } from './dicePressedHandler'
-import { Timer } from './Timer'
 
 let game = diceGame()
 let dph = dicePressedHandler()
@@ -32,7 +31,7 @@ function App() {
         const ix = dph.isPressed(index)  //we slice the current word and the
         setCurrWord(currWord.slice(0, ix)) //pressed array at the click location
         dph.slicepressed(ix)
-        setPressed(mapIndexesToBooleans(dph.getPressed()))
+        setPressed(dph.getPressedAsBoolArr())
       }
       else if (dph.isNextTo(index)) {
           dph.press(index)
