@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import './App.css'
-import { Box, Button, Text, Container } from '@chakra-ui/react'
+import { Box, Button, Text, Container, Spacer } from '@chakra-ui/react'
 import { diceGame } from './diceGame'
 import { dicePressedHandler } from './dicePressedHandler'
 import GameGrid from './components/GameGrid'
@@ -18,9 +18,11 @@ function App() {
   const [pressed, setPressed] = useState( Array.from({ length: 16 }, () => false))
   const [currWord, setCurrWord] = useState("")
   const [timeLeft, setTimeLeft] = useState(0)
+  const [status, setStatus] = useState("")
 
   useEffect(() => {
     game.onTick(setTimeLeft) // set the callback for the timer
+    game.onStatus(setStatus)
     game.newGame()
   }, [])
 
@@ -59,12 +61,13 @@ function App() {
   }
 
   return (
-    <Container >
+    <Container padding='0'>
       <Text fontWeight={'bold'} fontSize={'x-large'} bg='#4299E1' padding={'10px'} margin={0}>Boggle</Text>
-      <Text fontWeight={'bold'} fontSize={'x-large'}>Time Left: {timeLeft}</Text>
+      <Text margin='2em' fontWeight={'bold'} fontSize={'x-large'}>Time Left: {timeLeft}</Text>
       <Box padding={'auto'}>
         <GameGrid clicked={pressed} setClicked={ handleDieClick} letters={game.getDice()} />
         <Button margin={'5px'} colorScheme='blue' onClick={ newgame }>roll</Button>
+        
         <Button margin={'5px'} colorScheme='blue' onClick={ handleSubmit }> submit</Button>
         <Box>
             <Text minHeight={'1.5em'} fontWeight={'bold'}>{currWord.toUpperCase()}</Text>
@@ -75,6 +78,7 @@ function App() {
         <Text fontWeight={'bold'} >
             Score: { game.score() }
         </Text>
+        <Text fontSize='x-large' minHeight={'1.5em'} fontWeight={'bold'}>{status}</Text>
       </Box>
     </Container>
   )

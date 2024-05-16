@@ -8,8 +8,9 @@ function diceGame() {
     const dict = dictionary()
     const scorecard = scoreCard()
     let timeLeft = 90;
-    let intervalId = null;
-    let onTickCallback = null;
+    let intervalId = null
+    let onTickCallback = null
+    let statusCallback = null
 
     function isGameOver() {
         return (timeLeft <= 0)
@@ -31,8 +32,17 @@ function diceGame() {
             if (!scorecard.isWordFound(word)){
                 if (dict.wordsExists(word)) {
                     scorecard.addWord(word)
+                    if (statusCallback) {
+                        statusCallback(word + " was found!")
+                    }
                     return true
-                } 
+                } else if (statusCallback) {
+                    statusCallback(word+ " is not a word!")
+                    return false
+                }
+            } else if (statusCallback) {
+                statusCallback(word+" was already found!")
+                return false
             }
         }
         return false
@@ -59,6 +69,9 @@ function diceGame() {
             }
             if (timeLeft <= 0) {
               stopTimer();
+              if (statusCallback) {
+                statusCallback("Game Over!")
+              }
             }
           }, 1000);
         }
@@ -81,7 +94,11 @@ function diceGame() {
     const onTick = (callback) => {
         onTickCallback = callback;
     };
+
+    const onStatus = (callback) => {
+        statusCallback = callback
+    }
     
-    return { newGame, getDice, submitWord, wordsFound, numWordsFound, score, isGameOver, onTick }
+    return { newGame, getDice, submitWord, wordsFound, numWordsFound, score, isGameOver, onTick, onStatus }
 }
 export { diceGame }
