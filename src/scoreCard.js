@@ -5,36 +5,36 @@ function scoreCard() {
     let numwords = 0;
     let words = []
 
-    function addWord(word) {
+    const addWord = (word) => {
         score = score + computeScore(word)
         words.push(word)
         numwords++
         console.log(words)
     }
 
-    function getWords() {
+    const getWords = () => {
         return words
     }
-
-    function isWordFound(word) {
+   
+    const isWordFound = (word) => {
         return words.includes(word)
     }
-
-    function getScore() {
+    
+    const getScore = () => {
         return score
     }
 
-    function getNumWords() {
+    const getNumWords = () => {
         return numwords
     }
 
-    function reset() {
-        score = 0;
-        numwords = 0;
-        words = [];
+    const reset = () => {
+        score = 0
+        numwords = 0
+        words = []
     }
 
-    function computeScore(word) {
+    const computeScore = (word) => {
         const l = word.length
         let s = 0;
         if (l > 7) {

@@ -5,33 +5,33 @@ function dicePressedHandler() {
     let pressed = []
     const SIZE = 4
 
-    function press(die) {
-        pressed.push(die)
+    const press = (die) => {
+      pressed.push(die)
     }
 
-    function clear() {
+    const clear = () => {
         pressed = []
     }
 
-    function slicepressed(die) {
+    const slicepressed = (die) => {
         pressed = pressed.slice(0, die)
     }
 
-    function isPressed(die) {
+    const isPressed = (die) => {
         return pressed.indexOf(die)
     }
 
-    function isLastPressed(die) {
+    const isLastPressed = (die) => {
       return (pressed.indexOf(die) === pressed.length-1) 
     }
 
-    function getPressed(){
+    const getPressed = () => {
       return mapIndexesToBooleans(pressed)
     }
 
     // function to determine if this die is in a valid
     // position in reference to the last die, if one exists
-    function isNextTo(die) {
+    const isNextTo = (die) => {
         if (pressed.length === 0) {
           return true
         }

@@ -32,13 +32,10 @@ function diceGame() {
                 if (dict.wordsExists(word)) {
                     scorecard.addWord(word)
                     return true
-                } else {
-                    return false
-                }
-            } else {
-                return false
+                } 
             }
         }
+        return false
     }
 
     function wordsFound() {
