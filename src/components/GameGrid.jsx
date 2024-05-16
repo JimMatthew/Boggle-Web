@@ -1,9 +1,77 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { SimpleGrid, GridItem, Box, Image } from '@chakra-ui/react'
 import blank from '../assets/blank.png'
 
 const GameGrid = ({ letters, clicked, setClicked }) => {
+
+  const [isDragging, setIsDragging] = useState(false)
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+
+  const handleMouseDown = (index, event) => {
+    event.preventDefault()
+    console.log("mousedown")
+    setSelectedIndex(index);
+    setIsDragging(true)
+    setClicked(index)
+  }
+
+  const handleMouseEnter = (index, event) => {
+    event.preventDefault()
+    if (isDragging) {
+      setClicked(index)
+      setSelectedIndex(index);
+    }
+  }
+
+  const handleMouseUp = (event) => {
+    event.preventDefault()
+    setIsDragging(false)
+    setSelectedIndex(-1);
+  }
+
+  const handleTouchMove = (event) => {
+    event.preventDefault()
+    if (isDragging) {
+      const touch = event.touches[0];
+      const target = document.elementFromPoint(touch.clientX, touch.clientY);
+      if (target) {
+        let boxElement = target;
+        // Traverse up the DOM to find the correct box element
+        while (boxElement && !boxElement.dataset.index) {
+          boxElement = boxElement.parentElement;
+        }
+        if (boxElement && boxElement.dataset.index) {
+          const newIndex = parseInt(boxElement.dataset.index, 10);
+          console.log(newIndex)
+          if (newIndex !== selectedIndex){
+            console.log(newIndex +" new:old "+ selectedIndex)
+            setClicked(newIndex)
+            setSelectedIndex(newIndex)
+          }
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    const handleMouseUpOutside = (event) => {
+      event.preventDefault()
+      if (isDragging){
+        setIsDragging(false)
+        selectedIndex(-1)
+      }
+    }
+    document.addEventListener('mouseup', handleMouseUpOutside)
+    document.addEventListener('touchend', handleMouseUpOutside);
+    //document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    return () => {
+      document.removeEventListener('mouseup', handleMouseUpOutside)
+      document.removeEventListener('touchend', handleMouseUpOutside);
+      //document.removeEventListener('touchmove', handleTouchMove);
+    }
+  },[isDragging])
+
   return (
     <Box
       width={'90vw'}
@@ -18,11 +86,18 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
         {letters.map((letter, index) => (
           <GridItem 
             key={index}
+            data-index={index}
             display="flex"
             justifyContent="center"
             alignItems="center"
             color={clicked[index] ? "red" : "black"}
-            onClick={() => setClicked(index)}
+            
+            onMouseDown={(event) => handleMouseDown(index, event)}
+            onMouseEnter={(event) => handleMouseEnter(index,event)}
+            onMouseUp={handleMouseUp}
+            onTouchStart={(event) => handleMouseDown(index, event)}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleMouseUp}
             fontWeight="bold"
             fontSize={'x-large'}
           >

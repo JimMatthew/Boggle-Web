@@ -66,12 +66,11 @@ function App() {
       <Text margin='2em' fontWeight={'bold'} fontSize={'x-large'}>Time Left: {timeLeft}</Text>
       <Box padding={'auto'}>
         <GameGrid clicked={pressed} setClicked={ handleDieClick} letters={game.getDice()} />
-        <Button margin={'5px'} colorScheme='blue' onClick={ newgame }>roll</Button>
-        
-        <Button margin={'5px'} colorScheme='blue' onClick={ handleSubmit }> submit</Button>
         <Box>
-            <Text minHeight={'1.5em'} fontWeight={'bold'}>{currWord.toUpperCase()}</Text>
+            <Text fontSize='x-large' minHeight={'1.5em'} fontWeight={'bold'}>{currWord.toUpperCase()}</Text>
         </Box>
+        <Button margin={'5px'} colorScheme='blue' onClick={ newgame }>roll</Button>
+        <Button margin={'5px'} colorScheme='blue' onClick={ handleSubmit }> submit</Button>
         <Text fontWeight={'bold'}>
             Words Found: { game.numWordsFound() }
         </Text>

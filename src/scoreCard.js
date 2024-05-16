@@ -2,13 +2,11 @@
 function scoreCard() {
 
     let score = 0;
-    let numwords = 0;
     let words = []
 
     const addWord = (word) => {
         score = score + computeScore(word)
         words.push(word)
-        numwords++
         console.log(words)
     }
 
@@ -25,31 +23,22 @@ function scoreCard() {
     }
 
     const getNumWords = () => {
-        return numwords
+        return words.length
     }
 
     const reset = () => {
         score = 0
-        numwords = 0
         words = []
     }
 
     const computeScore = (word) => {
-        const l = word.length
-        let s = 0;
-        if (l > 7) {
-            s = 11
-        } else if (l > 6) {
-            s = 5
-        } else if (l > 5) {
-            s = 3
-        } else if (l > 4) {
-            s = 2
-        } else if (l > 2) {
-            s = 1
-        }
-        return s
-    }
+        const l = word.length;
+        return l > 7 ? 11 :
+               l > 6 ? 5 :
+               l > 5 ? 3 :
+               l > 4 ? 2 :
+               l > 2 ? 1 : 0;
+    };
 
     return { addWord, getNumWords, getWords, reset, isWordFound, getScore }
 }

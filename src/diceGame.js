@@ -9,25 +9,25 @@ function diceGame() {
     const scorecard = scoreCard()
     let timeLeft = 90;
     let intervalId = null
-    let onTickCallback = null
+    let onTickCallback = null   
     let statusCallback = null
 
-    function isGameOver() {
+    const isGameOver = () => {
         return (timeLeft <= 0)
     }
 
-    function newGame() {
+    const newGame = () => {
         dice.rollDice()
         scorecard.reset()
         resetTimer()
         startTimer()
     }
 
-    function getDice() {
+    const getDice = () => {
         return dice.getDice()
     }
 
-    function submitWord(word) {
+    const submitWord = (word) => {
         if (!isGameOver()){
             if (!scorecard.isWordFound(word)){
                 if (dict.wordsExists(word)) {
@@ -48,15 +48,15 @@ function diceGame() {
         return false
     }
 
-    function wordsFound() {
+    const wordsFound = () => {
         return scorecard.getWords()
     }
 
-    function numWordsFound() {
+    const numWordsFound = () => {
         return scorecard.getNumWords()
     }
 
-    function score() {
+    const score = () => {
         return scorecard.getScore()
     }
 
@@ -91,11 +91,11 @@ function diceGame() {
         }
     };
     
-    const onTick = (callback) => {
-        onTickCallback = callback;
+    const onTick = (callback) => {  //callback to be called every tick (second) while the timer is 
+        onTickCallback = callback;  //running. It passes the current time left every tick
     };
 
-    const onStatus = (callback) => {
+    const onStatus = (callback) => {  //if set, will call with status updates during gameplay
         statusCallback = callback
     }
     
