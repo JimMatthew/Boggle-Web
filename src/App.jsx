@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import './App.css'
-import { Box, GridItem } from '@chakra-ui/react'
-import { SimpleGrid, Button, Input, Text, Container } from '@chakra-ui/react'
+import { Box, Button, Text, Container } from '@chakra-ui/react'
 import { diceGame } from './diceGame'
 import { dicePressedHandler } from './dicePressedHandler'
 import GameGrid from './components/GameGrid'
+
 let game = diceGame()
 let dph = dicePressedHandler()
 
@@ -20,26 +20,26 @@ function App() {
   const [timeLeft, setTimeLeft] = useState(0)
 
   useEffect(() => {
-    game.onTick(setTimeLeft)
+    game.onTick(setTimeLeft) // set the callback for the timer
     game.newGame()
   }, [])
 
   const handleDieClick = (index) => {
     if (!game.isGameOver()){
       if (dph.isPressed(index) !== -1) { //die is already pressed
+        if (dph.isPressed(index) >= 2 && dph.isLastPressed(index)) {
+          handleSubmit()     //if there are more than 2 char pressed, and the last 
+          return             //char is pressed again, submit the word
+        }                    
         const ix = dph.isPressed(index)  //we slice the current word and the
         setCurrWord(currWord.slice(0, ix)) //pressed array at the click location
         dph.slicepressed(ix)
-        setPressed(dph.getPressedAsBoolArr())
+        setPressed(dph.getPressed())
       }
       else if (dph.isNextTo(index)) {
           dph.press(index)
           setCurrWord(currWord+game.getDice()[index])
-          setPressed(prevClicked => {
-              const newClicked = [...prevClicked]; // Create a copy of the clicked array
-              newClicked[index] = !newClicked[index]; // Toggle the clicked state of the die at the specified index
-              return newClicked; // Update the state with the modified array
-          });
+          setPressed(dph.getPressed())
       }
     }
   };
@@ -47,21 +47,21 @@ function App() {
   const handleSubmit = () => {
       game.submitWord(currWord)
       setCurrWord("")
-      setPressed(( Array.from({ length: 16 }, () => false)))
       dph.clear()
+      setPressed(dph.getPressed())
   }
   
   const newgame = () => {
     game.newGame()
     setCurrWord("")
     dph.clear()
-    setPressed(( Array.from({ length: 16 }, () => false)))
+    setPressed(dph.getPressed())
   }
 
-    return (
-      <Container >
-        <Text fontWeight={'bold'} fontSize={'x-large'} bg='#4299E1' padding={'10px'} margin={0}>Boggle</Text>
-        <Text fontWeight={'bold'} fontSize={'x-large'}>Time Left: {timeLeft}</Text>
+  return (
+    <Container >
+      <Text fontWeight={'bold'} fontSize={'x-large'} bg='#4299E1' padding={'10px'} margin={0}>Boggle</Text>
+      <Text fontWeight={'bold'} fontSize={'x-large'}>Time Left: {timeLeft}</Text>
       <Box padding={'auto'}>
         <GameGrid clicked={pressed} setClicked={ handleDieClick} letters={game.getDice()} />
         <Button margin={'5px'} colorScheme='blue' onClick={ newgame }>roll</Button>
@@ -75,8 +75,8 @@ function App() {
         <Text fontWeight={'bold'} >
             Score: { game.score() }
         </Text>
-    </Box>
-      </Container>
+      </Box>
+    </Container>
   )
 }
 

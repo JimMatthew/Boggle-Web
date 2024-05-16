@@ -18,15 +18,14 @@ function dicePressedHandler() {
     }
 
     function isPressed(die) {
-        console.log(pressed.indexOf(die))
         return pressed.indexOf(die)
     }
 
-    function getPressed() {
-        return pressed
+    function isLastPressed(die) {
+      return (pressed.indexOf(die) === pressed.length-1) 
     }
 
-    function getPressedAsBoolArr(){
+    function getPressed(){
       return mapIndexesToBooleans(pressed)
     }
 
@@ -53,6 +52,6 @@ function dicePressedHandler() {
         );
       }
 
-      return { press, clear, isPressed, isNextTo, slicepressed, getPressed, getPressedAsBoolArr }
+      return { press, clear, isPressed, isNextTo, slicepressed, getPressed, isLastPressed }
 }
 export { dicePressedHandler }
