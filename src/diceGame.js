@@ -39,7 +39,6 @@ function diceGame() {
                 return false
             }
         }
-        
     }
 
     function wordsFound() {
@@ -61,31 +60,30 @@ function diceGame() {
             if (onTickCallback) {
               onTickCallback(timeLeft);
             }
-    
             if (timeLeft <= 0) {
               stopTimer();
             }
           }, 1000);
         }
-      };
+    };
     
-      const stopTimer = () => {
+    const stopTimer = () => {
         if (intervalId !== null) {
           clearInterval(intervalId);
           intervalId = null;
         }
-      };
+    };
     
-      const resetTimer = () => {
+    const resetTimer = () => {
         timeLeft = 90;
         if (onTickCallback) {
           onTickCallback(timeLeft);
         }
-      };
+    };
     
-      const onTick = (callback) => {
+    const onTick = (callback) => {
         onTickCallback = callback;
-      };
+    };
     
     return { newGame, getDice, submitWord, wordsFound, numWordsFound, score, isGameOver, onTick }
 }

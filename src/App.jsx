@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 import { Box, GridItem } from '@chakra-ui/react'
-import { SimpleGrid, Grid, Button, Input, Text, Container } from '@chakra-ui/react'
+import { SimpleGrid, Button, Input, Text, Container } from '@chakra-ui/react'
 import { diceGame } from './diceGame'
 import { dicePressedHandler } from './dicePressedHandler'
-
+import GameGrid from './components/GameGrid'
 let game = diceGame()
 let dph = dicePressedHandler()
 
@@ -51,65 +51,32 @@ function App() {
       dph.clear()
   }
   
-  function newgame() {
+  const newgame = () => {
     game.newGame()
     setCurrWord("")
     dph.clear()
     setPressed(( Array.from({ length: 16 }, () => false)))
   }
-    
+
     return (
       <Container >
-        <Text fontWeight={'bold'} fontSize={'x-large'}>Boggle</Text>
+        <Text fontWeight={'bold'} fontSize={'x-large'} bg='#4299E1' padding={'10px'} margin={0}>Boggle</Text>
         <Text fontWeight={'bold'} fontSize={'x-large'}>Time Left: {timeLeft}</Text>
       <Box padding={'auto'}>
         <GameGrid clicked={pressed} setClicked={ handleDieClick} letters={game.getDice()} />
-        <Button onClick={ newgame }>roll</Button>
-        <Button onClick={ handleSubmit }> submit</Button>
+        <Button margin={'5px'} colorScheme='blue' onClick={ newgame }>roll</Button>
+        <Button margin={'5px'} colorScheme='blue' onClick={ handleSubmit }> submit</Button>
         <Box>
-            <Input type='text' value={ currWord }></Input>
+            <Text minHeight={'1.5em'} fontWeight={'bold'}>{currWord.toUpperCase()}</Text>
         </Box>
-        <Text>
+        <Text fontWeight={'bold'}>
             Words Found: { game.numWordsFound() }
         </Text>
-        <Text>
+        <Text fontWeight={'bold'} >
             Score: { game.score() }
         </Text>
     </Box>
       </Container>
-    
-  )
-}
-
-const GameGrid = ({ letters, clicked, setClicked }) => {
-  return (
-    <Box
-      width={'90vw'}
-      maxWidth="600px"
-      aspectRatio={1}
-      margin={'0 auto'} 
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <SimpleGrid columns={4} rows={4} spacing={2} width="100%" height="100%" >
-        {letters.map((letter, index) => (
-          <GridItem 
-            key={index}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            backgroundColor={ clicked[index] ? "yellow" : "teal.200"}
-            onClick={() => setClicked(index)}
-            fontWeight="bold"
-            fontSize={'x-large'}
-          >
-            {letter}
-          </GridItem>
-        ))}
-      </SimpleGrid>
-
-    </Box>
   )
 }
 
