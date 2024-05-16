@@ -7,7 +7,6 @@ function scoreCard() {
     const addWord = (word) => {
         score = score + computeScore(word)
         words.push(word)
-        console.log(words)
     }
 
     const getWords = () => {

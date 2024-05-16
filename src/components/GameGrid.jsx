@@ -10,7 +10,6 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
 
   const handleMouseDown = (index, event) => {
     event.preventDefault()
-    console.log("mousedown")
     setSelectedIndex(index);
     setIsDragging(true)
     setClicked(index)
@@ -43,9 +42,7 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
         }
         if (boxElement && boxElement.dataset.index) {
           const newIndex = parseInt(boxElement.dataset.index, 10);
-          console.log(newIndex)
           if (newIndex !== selectedIndex){
-            console.log(newIndex +" new:old "+ selectedIndex)
             setClicked(newIndex)
             setSelectedIndex(newIndex)
           }
@@ -55,8 +52,7 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
   }
 
   useEffect(() => {
-    const handleMouseUpOutside = (event) => {
-      event.preventDefault()
+    const handleMouseUpOutside = () => {
       if (isDragging){
         setIsDragging(false)
         selectedIndex(-1)
@@ -96,7 +92,7 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
             onMouseEnter={(event) => handleMouseEnter(index,event)}
             onMouseUp={handleMouseUp}
             onTouchStart={(event) => handleMouseDown(index, event)}
-            onTouchMove={handleTouchMove}
+            onTouchMove={(event) => handleTouchMove(event)}
             onTouchEnd={handleMouseUp}
             fontWeight="bold"
             fontSize={'x-large'}
@@ -126,7 +122,6 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
                 {letter.toUpperCase()}
               </Box>
             </Box>
-            
           </GridItem>
         ))}
       </SimpleGrid>
