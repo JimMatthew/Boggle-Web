@@ -14,7 +14,11 @@ function dictionary() {
           }
        return isWordIncluded
     }
-    return { wordsExists, dict }
+
+    const getDict = () => {
+      return dict
+    }
+    return { wordsExists, getDict}
 }
 
 export { dictionary }

@@ -113,8 +113,8 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
                 fontSize="2xl"
                 fontWeight="bold"
                 borderRadius="md"
-                paddingLeft="4px"
-                paddingRight="4px"
+                paddingLeft="15px"
+                paddingRight="15px"
                 data-index={index}
                 
                 onMouseEnter={(event) => handleMouseEnter(index,event)}

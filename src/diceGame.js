@@ -1,16 +1,20 @@
 import { diceHandler} from "./diceHandler"
 import { dictionary } from "./dictionary"
 import { scoreCard } from "./scoreCard"
+import { solver } from "./Solver"
 
 function diceGame() {
     
     const dice = diceHandler()
     const dict = dictionary()
     const scorecard = scoreCard()
+    const solvr = solver(dict.getDict())
     let timeLeft = 90;
     let intervalId = null
     let onTickCallback = null   
     let statusCallback = null
+    let wordsOnBoard = []
+    let numWordsOnBoard = 0
 
     const isGameOver = () => {
         return (timeLeft <= 0)
@@ -21,10 +25,18 @@ function diceGame() {
         scorecard.reset()
         resetTimer()
         startTimer()
+        sendCallback("")
+        let wordsOnBoard = solvr.solveBoard(dice.getDice())
+        console.log(wordsOnBoard)
+        numWordsOnBoard = wordsOnBoard.length
     }
 
     const getDice = () => {
         return dice.getDice()
+    }
+
+    const getNumWordsOnBoard = () => {
+        return numWordsOnBoard
     }
 
     const submitWord = (word) => {
@@ -101,6 +113,6 @@ function diceGame() {
         statusCallback = callback
     }
     
-    return { newGame, getDice, submitWord, wordsFound, numWordsFound, score, isGameOver, onTick, onStatus }
+    return { newGame, getDice, submitWord, wordsFound, numWordsFound, score, isGameOver, onTick, onStatus, getNumWordsOnBoard }
 }
 export { diceGame }

@@ -62,6 +62,7 @@ function App() {
   }
 
   return (
+    
     <Container padding='0'>
       <Text 
         fontWeight={'bold'} 
@@ -71,7 +72,7 @@ function App() {
         margin={0}>Boggle
       </Text>
       <Text 
-        margin='2em' 
+        margin='1.5em' 
         fontWeight={'bold'} 
         fontSize={'x-large'}>Time Left: {timeLeft}
       </Text>
@@ -104,6 +105,9 @@ function App() {
         </Text>
         <Text fontWeight={'bold'} >
             Score: { game.score() }
+        </Text>
+        <Text fontWeight={'bold'}>
+          Words on board: {game.getNumWordsOnBoard()}
         </Text>
         <Text 
           fontSize='x-large' 
