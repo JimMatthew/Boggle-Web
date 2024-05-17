@@ -9,28 +9,28 @@ function diceHandler() {
 
       let rolledDice = getRandomDiceRoll()
 
-      function getDice() {
+      const getDice = () => {
         return rolledDice
       }
 
-      function rollDice() {
+      const rollDice = () => {
         rolledDice = getRandomDiceRoll()
         return rolledDice
       }
 
-      function rollDie(die) {
+      const rollDie = (die) => {
         const randomIndex = Math.floor(Math.random() * die.length);
         return die[randomIndex];
       }
       
       // Function to generate a random letter arrangement from all dice
-      function getRandomDiceRoll() {
+      const getRandomDiceRoll = () => {
         const letters = dice.map(die => rollDie(die));
         return shuffleArray(letters);
       }
       
       // Function to shuffle an array using Fisher-Yates algorithm
-      function shuffleArray(array) {
+      const shuffleArray = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [array[i], array[j]] = [array[j], array[i]];
@@ -42,6 +42,3 @@ function diceHandler() {
 }
 
 export { diceHandler }
-
-
-

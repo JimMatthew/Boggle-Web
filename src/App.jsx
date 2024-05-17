@@ -33,7 +33,8 @@ function App() {
           handleSubmit()     //if there are more than 2 char pressed, and the last 
           return             //char is pressed again, submit the word
         }                    
-        const ix = dph.isPressed(index)  //we slice the current word and the
+        let ix = dph.isPressed(index) +1 //we slice the current word and the
+    
         setCurrWord(currWord.slice(0, ix)) //pressed array at the click location
         dph.slicepressed(ix)
         setPressed(dph.getPressed())

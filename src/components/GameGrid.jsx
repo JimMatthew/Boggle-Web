@@ -9,14 +9,14 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   const handleMouseDown = (index, event) => {
-    event.preventDefault()
+    event.cancelable && event.preventDefault()
     setSelectedIndex(index);
     setIsDragging(true)
     setClicked(index)
   }
 
   const handleMouseEnter = (index, event) => {
-    event.preventDefault()
+    event.cancelable && event.preventDefault()
     if (isDragging) {
       setClicked(index)
       setSelectedIndex(index);
@@ -24,13 +24,13 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
   }
 
   const handleMouseUp = (event) => {
-    event.preventDefault()
+    event.cancelable && event.preventDefault()
     setIsDragging(false)
     setSelectedIndex(-1);
   }
 
   const handleTouchMove = (event) => {
-    event.preventDefault()
+    event.cancelable && event.preventDefault()
     if (isDragging) {
       const touch = event.touches[0];
       const target = document.elementFromPoint(touch.clientX, touch.clientY);
@@ -82,18 +82,13 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
         {letters.map((letter, index) => (
           <GridItem 
             key={index}
-            data-index={index}
+            
             display="flex"
             justifyContent="center"
             alignItems="center"
             color={clicked[index] ? "red" : "black"}
-            
             onMouseDown={(event) => handleMouseDown(index, event)}
-            onMouseEnter={(event) => handleMouseEnter(index,event)}
-            onMouseUp={handleMouseUp}
-            onTouchStart={(event) => handleMouseDown(index, event)}
-            onTouchMove={(event) => handleTouchMove(event)}
-            onTouchEnd={handleMouseUp}
+            
             fontWeight="bold"
             fontSize={'x-large'}
           >
@@ -118,6 +113,15 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
                 fontSize="2xl"
                 fontWeight="bold"
                 borderRadius="md"
+                paddingLeft="4px"
+                paddingRight="4px"
+                data-index={index}
+                
+                onMouseEnter={(event) => handleMouseEnter(index,event)}
+                onMouseUp={handleMouseUp}
+                onTouchStart={(event) => handleMouseDown(index, event)}
+                onTouchMove={(event) => handleTouchMove(event)}
+                onTouchEnd={handleMouseUp}
               >
                 {letter.toUpperCase()}
               </Box>

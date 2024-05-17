@@ -28,24 +28,26 @@ function diceGame() {
     }
 
     const submitWord = (word) => {
-        if (!isGameOver()){
-            if (!scorecard.isWordFound(word)){
-                if (dict.wordsExists(word)) {
-                    scorecard.addWord(word)
-                    if (statusCallback) {
-                        statusCallback(word + " was found!")
-                    }
-                    return true
-                } else if (statusCallback) {
-                    statusCallback(word+ " is not a word!")
-                    return false
-                }
-            } else if (statusCallback) {
-                statusCallback(word+" was already found!")
-                return false
-            }
+        if (isGameOver()) {
+            return false
         }
-        return false
+        if (scorecard.isWordFound(word)) {
+            sendCallback(word+" was already found!")
+            return false
+        }
+        if (!dict.wordsExists(word)) {
+            sendCallback(word+ " is not a word!")
+            return false
+        }
+        scorecard.addWord(word)
+        sendCallback(word + " was found!")
+        return true
+    }
+
+    const sendCallback = (status) => {
+        if (statusCallback) {
+            statusCallback(status)
+        }
     }
 
     const wordsFound = () => {
