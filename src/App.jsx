@@ -6,17 +6,7 @@ import { diceGame } from './diceGame'
 import { dicePressedHandler } from './dicePressedHandler'
 import GameGrid from './components/GameGrid'
 import WordTable from './components/WordTable'
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
-} from '@chakra-ui/react'
+
 let game = diceGame()
 let dph = dicePressedHandler()
 
@@ -73,24 +63,53 @@ function App() {
 
   return (
     <Container padding='0'>
-      <Text fontWeight={'bold'} fontSize={'x-large'} bg='#4299E1' padding={'10px'} margin={0}>Boggle</Text>
-      <Text margin='2em' fontWeight={'bold'} fontSize={'x-large'}>Time Left: {timeLeft}</Text>
+      <Text 
+        fontWeight={'bold'} 
+        fontSize={'x-large'} 
+        bg='#4299E1' 
+        padding={'10px'} 
+        margin={0}>Boggle
+      </Text>
+      <Text 
+        margin='2em' 
+        fontWeight={'bold'} 
+        fontSize={'x-large'}>Time Left: {timeLeft}
+      </Text>
       <Box padding={'auto'}>
         {!game.isGameOver() ?
-        <GameGrid clicked={pressed} setClicked={ handleDieClick} letters={game.getDice()} />
+        <GameGrid 
+          clicked={pressed} 
+          setClicked={ handleDieClick} 
+          letters={game.getDice()} />
         : <Text></Text>}
         <Box>
-            <Text fontSize='x-large' minHeight={'1.5em'} fontWeight={'bold'}>{currWord.toUpperCase()}</Text>
+          <Text 
+            fontSize='x-large' 
+            minHeight={'1.5em'} 
+            fontWeight={'bold'}>{currWord.toUpperCase()}
+          </Text>
         </Box>
-        <Button margin={'5px'} colorScheme='blue' onClick={ newgame }>roll</Button>
-        <Button margin={'5px'} colorScheme='blue' onClick={ handleSubmit }> submit</Button>
+        <Button 
+          margin={'5px'} 
+          colorScheme='blue' 
+          onClick={ newgame }>roll
+        </Button>
+        <Button 
+          margin={'5px'} 
+          colorScheme='blue' 
+          onClick={ handleSubmit }> submit
+        </Button>
         <Text fontWeight={'bold'}>
             Words Found: { game.numWordsFound() }
         </Text>
         <Text fontWeight={'bold'} >
             Score: { game.score() }
         </Text>
-        <Text fontSize='x-large' minHeight={'1.5em'} fontWeight={'bold'}>{status}</Text>
+        <Text 
+          fontSize='x-large' 
+          minHeight={'1.5em'} 
+          fontWeight={'bold'}>{status}
+        </Text>
       </Box>
       <Box>
         {game.isGameOver() ?
