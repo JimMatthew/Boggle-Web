@@ -40,7 +40,7 @@ function solver(dictionary) {
             }
         }
         wordsFound = [...new Set(wordsFound)];
-        //wordsFound.sort((a, b) => b.length - a.length); // Sort by length
+        wordsFound.sort((a, b) => b.length - a.length); // Sort by length
         return wordsFound;
     }
 

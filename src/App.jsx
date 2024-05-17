@@ -120,9 +120,7 @@ function App() {
         <Flex>
             <WordTable wordlist={game.getWordsOnboard()} />
             <WordTable wordlist={game.wordsFound()} />
-            
         </Flex>
-        
         : <Box> </Box>
         }
       </Box>
