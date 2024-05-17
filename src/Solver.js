@@ -5,13 +5,7 @@ function solver(dictionary) {
     let board = Array.from(Array(4), () => new Array(4));
     let wordsFound = []
 
-    for (let word of dictionary) {
-        insert(word);
-    }
-
-    
-
-    function insert(word) {
+    const insert = (word) => {
         let node = root
         for (let char of word.trim()) {
             let index = char.charCodeAt(0) - 'a'.charCodeAt(0);
@@ -23,29 +17,22 @@ function solver(dictionary) {
         node.isEndOfWord = true;
     }
 
-    function resetVisited(visited) {
-        for (let i = 0; i < 4; i++) {
-            for (let j = 0; j < 4; j++) {
-                visited[i][j] = false
-            }
-        }
-        return visited
+    for (let word of dictionary) {
+        insert(word);
     }
 
-    function isValidCell(row, col) {
+    const isValidCell = (row, col) => {
         return row >= 0 && row < 4 && col >= 0 && col < 4;
     }
 
-    function solveBoard(b) {
+    const solveBoard = (b) => {
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
                 board[i][j] = b[(i*4)+j]
             }
         }
         wordsFound = []
-        
         let visited = Array.from(Array(4), () => new Array(4).fill(false));
-        visited = resetVisited(visited)
         
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
@@ -57,7 +44,7 @@ function solver(dictionary) {
         return wordsFound;
     }
 
-    function solve(visited, current, row, col){
+    const solve = (visited, current, row, col) => {
 
         visited[row][col] = true
         current += board[row][col]
@@ -92,7 +79,6 @@ function solver(dictionary) {
             }
         }
         visited[row][col] = false
-
     }
     return { solveBoard }
 }

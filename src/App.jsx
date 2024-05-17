@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import './App.css'
-import { Box, Button, Text, Container, } from '@chakra-ui/react'
+import { Box, Button, Text, Container,Flex } from '@chakra-ui/react'
 import { diceGame } from './diceGame'
 import { dicePressedHandler } from './dicePressedHandler'
 import GameGrid from './components/GameGrid'
@@ -117,7 +117,12 @@ function App() {
       </Box>
       <Box>
         {game.isGameOver() ?
-        <WordTable wordlist={game.wordsFound()} />
+        <Flex>
+            <WordTable wordlist={game.getWordsOnboard()} />
+            <WordTable wordlist={game.wordsFound()} />
+            
+        </Flex>
+        
         : <Box> </Box>
         }
       </Box>

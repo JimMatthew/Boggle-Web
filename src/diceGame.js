@@ -9,11 +9,11 @@ function diceGame() {
     const dict = dictionary()
     const scorecard = scoreCard()
     const solvr = solver(dict.getDict())
-    let timeLeft = 90;
+    let timeLeft = 30;
     let intervalId = null
     let onTickCallback = null   
     let statusCallback = null
-    let wordsOnBoard = []
+    let wordsOnBoard =[]
     let numWordsOnBoard = 0
 
     const isGameOver = () => {
@@ -26,8 +26,7 @@ function diceGame() {
         resetTimer()
         startTimer()
         sendCallback("")
-        let wordsOnBoard = solvr.solveBoard(dice.getDice())
-        console.log(wordsOnBoard)
+        wordsOnBoard = solvr.solveBoard(dice.getDice())
         numWordsOnBoard = wordsOnBoard.length
     }
 
@@ -37,6 +36,10 @@ function diceGame() {
 
     const getNumWordsOnBoard = () => {
         return numWordsOnBoard
+    }
+    
+    const getWordsOnboard = () => {
+        return wordsOnBoard
     }
 
     const submitWord = (word) => {
@@ -99,7 +102,7 @@ function diceGame() {
     };
     
     const resetTimer = () => {
-        timeLeft = 90;
+        timeLeft = 30;
         if (onTickCallback) {
           onTickCallback(timeLeft);
         }
@@ -113,6 +116,6 @@ function diceGame() {
         statusCallback = callback
     }
     
-    return { newGame, getDice, submitWord, wordsFound, numWordsFound, score, isGameOver, onTick, onStatus, getNumWordsOnBoard }
+    return { newGame, getDice, submitWord, wordsFound, numWordsFound, score, isGameOver, onTick, onStatus, getNumWordsOnBoard, getWordsOnboard }
 }
 export { diceGame }
