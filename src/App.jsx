@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import './App.css'
-import { Box, Button, Text, Container,Flex } from '@chakra-ui/react'
+import { Box, Button, Text, Container,Flex, Spacer, Card } from '@chakra-ui/react'
 import { diceGame } from './diceGame'
 import { dicePressedHandler } from './dicePressedHandler'
 import GameGrid from './components/GameGrid'
@@ -62,8 +62,8 @@ function App() {
   }
 
   return (
-    
-    <Container padding='0'>
+    <Box minHeight='100vh' backgroundColor='gray.200'>
+      <Container minHeight='100vh' backgroundColor='white' padding='0'>
       <Text 
         fontWeight={'bold'} 
         fontSize={'x-large'} 
@@ -71,13 +71,18 @@ function App() {
         padding={'10px'} 
         margin={0}>Boggle
       </Text>
-      <Text 
-        margin='1.5em' 
-        fontWeight={'bold'} 
-        fontSize={'x-large'}>Time Left: {timeLeft}
-      </Text>
+      <Card margin='8px'>
+        <Text 
+          margin='1.5em' 
+          fontWeight={'bold'} 
+          fontSize={'x-large'}>Time Left: {timeLeft}
+        </Text>
+      </Card>
+     
       <Box padding={'auto'}>
+      
         {!game.isGameOver() ?
+        
         <GameGrid 
           clicked={pressed} 
           setClicked={ handleDieClick} 
@@ -118,13 +123,16 @@ function App() {
       <Box>
         {game.isGameOver() ?
         <Flex>
-            <WordTable wordlist={game.getWordsOnboard()} />
-            <WordTable wordlist={game.wordsFound()} />
+            <WordTable wordlist={game.getWordsOnboard()} title={"All Words"} />
+            <WordTable wordlist={game.wordsFound()} title={"Words Found"}/>
         </Flex>
         : <Box> </Box>
         }
       </Box>
+      <Spacer/>
     </Container>
+    </Box>
+    
   )
 }
 

@@ -2,12 +2,12 @@
 import React, { useState, } from 'react'
 import { Table, Thead,Tbody,Tr,Th,Td,TableContainer,} from '@chakra-ui/react'
 
-function WordTable ({ wordlist }) {
+function WordTable ({ wordlist, title }) {
     return (
     <TableContainer>
         <Table size='sm'>
             <Thead>
-                <Tr><Th>Words Found</Th></Tr>
+                <Tr><Th>{title}</Th></Tr>
             </Thead>
             <Tbody>
             {wordlist.map((word, index) => (
