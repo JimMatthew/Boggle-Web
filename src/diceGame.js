@@ -7,7 +7,7 @@ function diceGame() {
     const dice = diceHandler()
     const dict = dictionary()
     const scorecard = scoreCard()
-    let timeLeft = 90;
+    let timeLeft = 40;
     let intervalId = null
     let onTickCallback = null   
     let statusCallback = null
@@ -32,15 +32,15 @@ function diceGame() {
             return false
         }
         if (scorecard.isWordFound(word)) {
-            sendCallback(word+" was already found!")
+            sendCallback(word.toUpperCase() +" was already found!")
             return false
         }
         if (!dict.wordsExists(word)) {
-            sendCallback(word+ " is not a word!")
+            sendCallback(word.toUpperCase() + " is not a word!")
             return false
         }
         scorecard.addWord(word)
-        sendCallback(word + " was found!")
+        sendCallback(word.toUpperCase() + " was found!")
         return true
     }
 
@@ -87,7 +87,7 @@ function diceGame() {
     };
     
     const resetTimer = () => {
-        timeLeft = 90;
+        timeLeft = 40;
         if (onTickCallback) {
           onTickCallback(timeLeft);
         }

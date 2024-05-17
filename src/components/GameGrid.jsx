@@ -55,7 +55,7 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
     const handleMouseUpOutside = () => {
       if (isDragging){
         setIsDragging(false)
-        selectedIndex(-1)
+        setSelectedIndex(-1)
       }
     }
     document.addEventListener('mouseup', handleMouseUpOutside)
