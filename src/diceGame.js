@@ -9,7 +9,7 @@ function diceGame() {
     const dict = dictionary()
     const scorecard = scoreCard()
     const solvr = solver(dict.getDict())
-    let timeLeft = 30;
+    let timeLeft = 90;
     let intervalId = null
     let onTickCallback = null   
     let statusCallback = null
@@ -102,7 +102,7 @@ function diceGame() {
     };
     
     const resetTimer = () => {
-        timeLeft = 30;
+        timeLeft = 90;
         if (onTickCallback) {
           onTickCallback(timeLeft);
         }
