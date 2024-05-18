@@ -54,7 +54,6 @@ function solver(dictionary) {
             let index = current.charCodeAt(level) - 'a'.charCodeAt(0)
             
             if (!node.children[index]) {
-                
                 visited[row][col] = false
                 return
             }

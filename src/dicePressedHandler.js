@@ -42,14 +42,14 @@ function dicePressedHandler() {
         const Yblp = last % SIZE;
 
         if (Xblp === -1) {
-          return true;
+          return true
         }
 
         return (
           (Xbtt === Xblp && Math.abs(Ybtt - Yblp) === 1) ||
           (Ybtt === Yblp && Math.abs(Xbtt - Xblp) === 1) ||
           (Math.abs(Xbtt - Xblp) === 1 && Math.abs(Ybtt - Yblp) === 1)
-        );
+        )
       }
 
       return { press, clear, isPressed, isNextTo, slicepressed, getPressed, isLastPressed }

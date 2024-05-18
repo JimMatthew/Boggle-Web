@@ -2,6 +2,7 @@ import { diceHandler} from "./diceHandler"
 import { dictionary } from "./dictionary"
 import { scoreCard } from "./scoreCard"
 import { solver } from "./Solver"
+import { statTracker } from "./statTracker"
 
 function diceGame() {
     
@@ -9,7 +10,9 @@ function diceGame() {
     const dict = dictionary()
     const scorecard = scoreCard()
     const solvr = solver(dict.getDict())
-    let timeLeft = 90;
+    const stats = statTracker()
+    const TIME = 30
+    let timeLeft = TIME;
     let intervalId = null
     let onTickCallback = null   
     let statusCallback = null
@@ -28,6 +31,22 @@ function diceGame() {
         sendCallback("")
         wordsOnBoard = solvr.solveBoard(dice.getDice())
         numWordsOnBoard = wordsOnBoard.length
+    }
+
+    const getNumGamesPlayed = () => {
+        return stats.getGamesPlayed()
+    }
+
+    const getLongestWordFound = () => {
+        return stats.getLongestWord()
+    }
+
+    const getNumWordsFound = () => {
+        return stats.getNumWords()
+    }
+
+    const getHighScore = () => {
+        return stats.getHighScore()
     }
 
     const getDice = () => {
@@ -55,6 +74,7 @@ function diceGame() {
             return false
         }
         scorecard.addWord(word)
+        stats.addWord(word)
         sendCallback(word.toUpperCase() + " was found!")
         return true
     }
@@ -85,6 +105,7 @@ function diceGame() {
               onTickCallback(timeLeft);
             }
             if (timeLeft <= 0) {
+              stats.addGame(score())
               stopTimer();
               if (statusCallback) {
                 statusCallback("Game Over!")
@@ -92,30 +113,30 @@ function diceGame() {
             }
           }, 1000);
         }
-    };
+    }
     
     const stopTimer = () => {
         if (intervalId !== null) {
           clearInterval(intervalId);
           intervalId = null;
         }
-    };
+    }
     
     const resetTimer = () => {
-        timeLeft = 90;
+        timeLeft = TIME;
         if (onTickCallback) {
           onTickCallback(timeLeft);
         }
-    };
+    }
     
     const onTick = (callback) => {  //callback to be called every tick (second) while the timer is 
         onTickCallback = callback;  //running. It passes the current time left every tick
-    };
+    }
 
     const onStatus = (callback) => {  //if set, will call with status updates during gameplay
         statusCallback = callback
     }
     
-    return { newGame, getDice, submitWord, wordsFound, numWordsFound, score, isGameOver, onTick, onStatus, getNumWordsOnBoard, getWordsOnboard }
+    return { newGame, getDice, submitWord, wordsFound, numWordsFound, score, isGameOver, onTick, onStatus, getNumWordsOnBoard, getWordsOnboard, getLongestWordFound, getNumGamesPlayed, getNumWordsFound, getHighScore }
 }
 export { diceGame }

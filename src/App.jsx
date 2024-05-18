@@ -4,6 +4,7 @@ import './App.css'
 import { Box, Button, Text, Container,Flex, Spacer, Card } from '@chakra-ui/react'
 import { diceGame } from './diceGame'
 import { dicePressedHandler } from './dicePressedHandler'
+import StatPane from './components/StatPane'
 import GameGrid from './components/GameGrid'
 import WordTable from './components/WordTable'
 
@@ -67,7 +68,7 @@ function App() {
       <Text 
         fontWeight={'bold'} 
         fontSize={'x-large'} 
-        bg='#4299E1' 
+        bg='blue.300'
         padding={'10px'} 
         margin={0}>Boggle
       </Text>
@@ -80,14 +81,18 @@ function App() {
       </Card>
      
       <Box padding={'auto'}>
-      
         {!game.isGameOver() ?
-        
         <GameGrid 
           clicked={pressed} 
           setClicked={ handleDieClick} 
           letters={game.getDice()} />
-        : <Text></Text>}
+        : <Box> 
+          <StatPane 
+            highScore={game.getHighScore()}
+            numGames={game.getNumGamesPlayed()} 
+            numWords={game.getNumWordsFound()} 
+            longWord={game.getLongestWordFound()} />
+          </Box>}
         <Box>
           <Text 
             fontSize='x-large' 
@@ -132,7 +137,6 @@ function App() {
       <Spacer/>
     </Container>
     </Box>
-    
   )
 }
 
