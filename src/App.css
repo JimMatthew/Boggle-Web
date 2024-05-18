@@ -8,7 +8,7 @@
 }
 
 body{
-  overscroll-behavior: auto;
+  overscroll-behavior: none;
   min-height: -webkit-fill-available;
   
 }
