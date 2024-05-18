@@ -82,7 +82,7 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
         {letters.map((letter, index) => (
           <GridItem 
             key={index}
-            
+            cursor="pointer"
             display="flex"
             justifyContent="center"
             alignItems="center"

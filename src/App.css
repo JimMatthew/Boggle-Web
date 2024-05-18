@@ -3,13 +3,13 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  overflow: hidden;
-  overscroll-behavior: contain;
+  overflow: auto;
+  
 }
 
 body{
-  overscroll-behavior: contain;
+  overscroll-behavior: auto;
   min-height: -webkit-fill-available;
-  height: 100dvh;
+  
 }
 
