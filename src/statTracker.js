@@ -13,11 +13,10 @@ const statTracker = (() => {
   
     const addGame = (score) => {
       const highScore = parseInt(getItem('highScore', '0'), 10);
+      const gamesPlayed = parseInt(getItem('gamesPlayed', '0'), 10) + 1;
       if (score > highScore) {
         setItem('highScore', score);
       }
-  
-      const gamesPlayed = parseInt(getItem('gamesPlayed', '0'), 10) + 1;
       setItem('gamesPlayed', gamesPlayed);
     };
   
