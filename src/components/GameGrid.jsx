@@ -60,11 +60,9 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
     }
     document.addEventListener('mouseup', handleMouseUpOutside)
     document.addEventListener('touchend', handleMouseUpOutside);
-    //document.addEventListener('touchmove', handleTouchMove, { passive: false });
     return () => {
       document.removeEventListener('mouseup', handleMouseUpOutside)
       document.removeEventListener('touchend', handleMouseUpOutside);
-      //document.removeEventListener('touchmove', handleTouchMove);
     }
   },[isDragging])
 
@@ -89,7 +87,6 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
             alignItems="center"
             color={clicked[index] ? "red" : "black"}
             onMouseDown={(event) => handleMouseDown(index, event)}
-            
             fontWeight="bold"
             fontSize={'x-large'}
           >

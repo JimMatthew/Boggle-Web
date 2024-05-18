@@ -10,7 +10,6 @@ function diceGame() {
     const dict = dictionary()
     const scorecard = scoreCard()
     const solvr = solver(dict.getDict())
-    const stats = statTracker()
     const TIME = 10
     let timeLeft = TIME;
     let intervalId = null
@@ -34,19 +33,19 @@ function diceGame() {
     }
 
     const getNumGamesPlayed = () => {
-        return stats.getGamesPlayed()
+        return statTracker.getGamesPlayed()
     }
 
     const getLongestWordFound = () => {
-        return stats.getLongestWord()
+        return statTracker.getLongestWord()
     }
 
     const getNumWordsFound = () => {
-        return stats.getNumWords()
+        return statTracker.getNumWords()
     }
 
     const getHighScore = () => {
-        return stats.getHighScore()
+        return statTracker.getHighScore()
     }
 
     const getDice = () => {
@@ -74,7 +73,7 @@ function diceGame() {
             return false
         }
         scorecard.addWord(word)
-        stats.addWord(word)
+        statTracker.addWord(word)
         sendCallback(word.toUpperCase() + " was found!")
         return true
     }
@@ -105,7 +104,7 @@ function diceGame() {
               onTickCallback(timeLeft);
             }
             if (timeLeft <= 0) {
-              stats.addGame(score())
+                statTracker.addGame(score())
               stopTimer();
               if (statusCallback) {
                 statusCallback("Game Over!")
