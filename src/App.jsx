@@ -74,7 +74,7 @@ function App() {
       </Text>
       <Card margin='8px'>
         <Text 
-          margin='1.5em' 
+          margin='.5em' 
           fontWeight={'bold'} 
           fontSize={'x-large'}>Time Left: {timeLeft}
         </Text>
