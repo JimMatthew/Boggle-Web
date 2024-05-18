@@ -64,7 +64,7 @@ function App() {
 
   return (
     <Box minHeight='100dvh' backgroundColor='gray.200'>
-      <Container minHeight='100vh' backgroundColor='white' padding='0'>
+      <Container minHeight='100dvh' backgroundColor='white' padding='0'>
       <Text 
         fontWeight={'bold'} 
         fontSize={'x-large'} 
