@@ -9,5 +9,7 @@
 
 body{
   overscroll-behavior: contain;
+  min-height: -webkit-fill-available;
+  height: 100dvh;
 }
 
