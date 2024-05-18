@@ -10,7 +10,7 @@ function diceGame() {
     const dict = dictionary()
     const scorecard = scoreCard()
     const solvr = solver(dict.getDict())
-    const TIME = 10
+    const TIME = 60
     let timeLeft = TIME;
     let intervalId = null
     let onTickCallback = null   
@@ -68,7 +68,7 @@ function diceGame() {
             sendCallback(word.toUpperCase() +" was already found!")
             return false
         }
-        if (!dict.wordsExists(word)) {
+        if (!dict.wordExists(word)) {
             sendCallback(word.toUpperCase() + " is not a word!")
             return false
         }
@@ -136,6 +136,22 @@ function diceGame() {
         statusCallback = callback
     }
     
-    return { newGame, getDice, submitWord, wordsFound, numWordsFound, score, isGameOver, onTick, onStatus, getNumWordsOnBoard, getWordsOnboard, getLongestWordFound, getNumGamesPlayed, getNumWordsFound, getHighScore }
+    return { 
+        newGame, 
+        getDice, 
+        submitWord, 
+        wordsFound, 
+        numWordsFound, 
+        score, 
+        isGameOver, 
+        onTick, 
+        onStatus, 
+        getNumWordsOnBoard, 
+        getWordsOnboard, 
+        getLongestWordFound, 
+        getNumGamesPlayed, 
+        getNumWordsFound, 
+        getHighScore 
+    }
 }
 export { diceGame }

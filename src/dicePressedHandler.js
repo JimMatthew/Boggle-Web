@@ -33,10 +33,10 @@ function dicePressedHandler() {
     /**
      * Checks if a die is pressed.
      * @param {number} die - The index of the die to check.
-     * @returns {boolean} True if the die is pressed, otherwise false.
+     * @returns {boolean} The index of the die if the die is pressed, otherwise -1.
      */
     const isPressed = (die) => {
-        return pressed.indexOf(die) !== -1;
+        return pressed.indexOf(die);
     };
 
     /**

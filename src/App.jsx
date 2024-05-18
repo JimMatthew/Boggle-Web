@@ -37,7 +37,7 @@ function App() {
         }                    
         const ix = dph.isPressed(index) +1 //we slice the current word and the
         setCurrWord(currWord.slice(0, ix)) //pressed array at the click location
-        dph.slicepressed(ix)
+        dph.slicePressed(ix)
         setPressed(dph.getPressed())
       }
       else if (dph.isNextTo(index)) {
