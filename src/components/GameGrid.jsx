@@ -70,6 +70,7 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
 
   return (
     <Box
+      className='boxclass'
       width={'90vw'}
       maxWidth="400px"
       aspectRatio={1}
@@ -116,7 +117,7 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
                 paddingLeft="15px"
                 paddingRight="15px"
                 data-index={index}
-                
+                className='boxclass'
                 onMouseEnter={(event) => handleMouseEnter(index,event)}
                 onMouseUp={handleMouseUp}
                 onTouchStart={(event) => handleMouseDown(index, event)}

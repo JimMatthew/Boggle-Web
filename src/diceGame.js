@@ -11,7 +11,7 @@ function diceGame() {
     const scorecard = scoreCard()
     const solvr = solver(dict.getDict())
     const stats = statTracker()
-    const TIME = 90
+    const TIME = 10
     let timeLeft = TIME;
     let intervalId = null
     let onTickCallback = null   
