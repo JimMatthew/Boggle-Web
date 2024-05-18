@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import './App.css'
-import { Box, Button, Text, Container,Flex, Spacer, Card } from '@chakra-ui/react'
+import { Box, Button, Text, Container,Flex, Spacer, Card, HStack, Center } from '@chakra-ui/react'
 import { diceGame } from './diceGame'
 import { dicePressedHandler } from './dicePressedHandler'
 import StatPane from './components/StatPane'
@@ -93,37 +93,45 @@ function App() {
             numWords={game.getNumWordsFound()} 
             longWord={game.getLongestWordFound()} />
           </Box>}
-        <Box>
+          <Card margin='8px' marginBottom='15px' marginTop='10px' >
+          <Box>
+            <Text 
+              fontSize='x-large' 
+              minHeight={'1.5em'} 
+              fontWeight={'bold'}>{currWord.toUpperCase()}
+            </Text>
+          </Box>
+        
+          <Center>
+            <HStack spacing={8} >
+              <Button 
+                margin={'5px'} 
+                colorScheme='blue' 
+                onClick={ newgame }>new game
+              </Button>
+              <Button 
+                margin={'5px'} 
+                colorScheme='blue' 
+                onClick={ handleSubmit }> submit
+              </Button>
+            </HStack>
+          </Center>
+          
+          <Text fontWeight={'bold'}>
+              Words Found: { game.numWordsFound() }
+          </Text>
+          <Text fontWeight={'bold'} >
+              Score: { game.score() }
+          </Text>
+          <Text fontWeight={'bold'}>
+            Words on board: {game.getNumWordsOnBoard()}
+          </Text>
           <Text 
             fontSize='x-large' 
             minHeight={'1.5em'} 
-            fontWeight={'bold'}>{currWord.toUpperCase()}
+            fontWeight={'bold'}>{status}
           </Text>
-        </Box>
-        <Button 
-          margin={'5px'} 
-          colorScheme='blue' 
-          onClick={ newgame }>roll
-        </Button>
-        <Button 
-          margin={'5px'} 
-          colorScheme='blue' 
-          onClick={ handleSubmit }> submit
-        </Button>
-        <Text fontWeight={'bold'}>
-            Words Found: { game.numWordsFound() }
-        </Text>
-        <Text fontWeight={'bold'} >
-            Score: { game.score() }
-        </Text>
-        <Text fontWeight={'bold'}>
-          Words on board: {game.getNumWordsOnBoard()}
-        </Text>
-        <Text 
-          fontSize='x-large' 
-          minHeight={'1.5em'} 
-          fontWeight={'bold'}>{status}
-        </Text>
+        </Card>
       </Box>
       <Box>
         {game.isGameOver() ?
