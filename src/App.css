@@ -6,7 +6,9 @@
   overflow: auto;
   
 }
-
+html {
+  overscroll-behavior: none;
+}
 body{
   overscroll-behavior: none;
   min-height: -webkit-fill-available;
