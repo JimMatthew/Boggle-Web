@@ -4,10 +4,10 @@
   padding: 2rem;
   text-align: center;
   overflow: hidden;
-    overscroll-behavior: none;
+  overscroll-behavior: contain;
 }
 
 body{
-  
+  overscroll-behavior: contain;
 }
 
