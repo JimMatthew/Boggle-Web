@@ -18,10 +18,6 @@ function diceGame() {
     let wordsOnBoard =[]
     let numWordsOnBoard = 0
 
-    const isGameOver = () => {
-        return (timeLeft <= 0)
-    }
-
     const newGame = () => {
         dice.rollDice()
         scorecard.reset()
@@ -32,38 +28,21 @@ function diceGame() {
         numWordsOnBoard = wordsOnBoard.length
     }
 
-    const getNumGamesPlayed = () => {
-        return statTracker.getGamesPlayed()
-    }
-
-    const getLongestWordFound = () => {
-        return statTracker.getLongestWord()
-    }
-
-    const getNumWordsFound = () => {
-        return statTracker.getNumWords()
-    }
-
-    const getHighScore = () => {
-        return statTracker.getHighScore()
-    }
-
-    const getDice = () => {
-        return dice.getDice()
-    }
-
-    const getNumWordsOnBoard = () => {
-        return numWordsOnBoard
-    }
+    const isGameOver = () => timeLeft <=0
+    const getNumGamesPlayed = () => statTracker.getGamesPlayed()
+    const getLongestWordFound = () => statTracker.getLongestWord()
+    const getNumWordsFound = () => statTracker.getNumWords()
+    const getHighScore = () => statTracker.getHighScore()
+    const getDice = () => dice.getDice()
+    const getNumWordsOnBoard = () => numWordsOnBoard
+    const getWordsOnboard = () => wordsOnBoard
+    const wordsFound = () => scorecard.getWords()
+    const numWordsFound = () => scorecard.getNumWords()
+    const score = () => scorecard.getScore()
     
-    const getWordsOnboard = () => {
-        return wordsOnBoard
-    }
-
     const submitWord = (word) => {
-        if (isGameOver()) {
-            return false
-        }
+        if (isGameOver()) return false
+        
         if (scorecard.isWordFound(word)) {
             sendCallback(word.toUpperCase() +" was already found!")
             return false
@@ -79,36 +58,18 @@ function diceGame() {
     }
 
     const sendCallback = (status) => {
-        if (statusCallback) {
-            statusCallback(status)
-        }
-    }
-
-    const wordsFound = () => {
-        return scorecard.getWords()
-    }
-
-    const numWordsFound = () => {
-        return scorecard.getNumWords()
-    }
-
-    const score = () => {
-        return scorecard.getScore()
+        if (statusCallback) statusCallback(status)
     }
 
     const startTimer = () => {
         if (intervalId === null) {
           intervalId = setInterval(() => {
             timeLeft -= 1;
-            if (onTickCallback) {
-              onTickCallback(timeLeft);
-            }
+            if (onTickCallback) onTickCallback(timeLeft)
             if (timeLeft <= 0) {
                 statTracker.addGame(score())
-              stopTimer();
-              if (statusCallback) {
-                statusCallback("Game Over!")
-              }
+                stopTimer();
+                if (statusCallback) statusCallback("Game Over!")
             }
           }, 1000);
         }
@@ -123,9 +84,7 @@ function diceGame() {
     
     const resetTimer = () => {
         timeLeft = TIME;
-        if (onTickCallback) {
-          onTickCallback(timeLeft);
-        }
+        if (onTickCallback) onTickCallback(timeLeft);
     }
     
     const onTick = (callback) => {  //callback to be called every tick (second) while the timer is 

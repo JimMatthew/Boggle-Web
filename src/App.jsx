@@ -8,8 +8,8 @@ import StatPane from './components/StatPane'
 import GameGrid from './components/GameGrid'
 import WordTable from './components/WordTable'
 
-let game = diceGame()
-let dph = dicePressedHandler()
+const game = diceGame()
+const dph = dicePressedHandler()
 
 function App() {
  
@@ -17,7 +17,7 @@ function App() {
   // since the game doesn't care about what dice we are selecting until we actually submit a 
   // word, we will keep track of the state here until it is submitted to the game object
   
-  const [pressed, setPressed] = useState( Array.from({ length: 16 }, () => false))
+  const [pressed, setPressed] = useState(Array(16).fill(false));
   const [currWord, setCurrWord] = useState("")
   const [timeLeft, setTimeLeft] = useState(0)
   const [status, setStatus] = useState("")
@@ -29,24 +29,24 @@ function App() {
   }, [])
 
   const handleDieClick = (index) => {
-    if (!game.isGameOver()){
-      if (dph.isPressed(index) !== -1) { //die is already pressed
+    if (game.isGameOver()) return;
+
+    if (dph.isPressed(index) !== -1) {
         if (dph.isPressed(index) >= 2 && dph.isLastPressed(index)) {
-          handleSubmit()     //if there are more than 2 char pressed, and the last 
-          return             //char is pressed again, submit the word
-        }                    
-        const ix = dph.isPressed(index) +1 //we slice the current word and the
-        setCurrWord(currWord.slice(0, ix)) //pressed array at the click location
-        dph.slicePressed(ix)
-        setPressed(dph.getPressed())
-      }
-      else if (dph.isNextTo(index)) {
-          dph.press(index)
-          setCurrWord(currWord+game.getDice()[index])
-          setPressed(dph.getPressed())
-      }
+            handleSubmit();
+            return;
+        }
+
+        const ix = dph.isPressed(index) + 1;
+        setCurrWord(currWord.slice(0, ix));
+        dph.slicePressed(ix);
+        setPressed(dph.getPressed());
+    } else if (dph.isNextTo(index)) {
+        dph.press(index);
+        setCurrWord(currWord + game.getDice()[index]);
+        setPressed(dph.getPressed());
     }
-  };
+  }
 
   const handleSubmit = () => {
       game.submitWord(currWord)
@@ -133,15 +133,12 @@ function App() {
           </Text>
         </Card>
       </Box>
-      <Box>
-        {game.isGameOver() ?
+      {game.isGameOver() && (
         <Flex>
-            <WordTable wordlist={game.getWordsOnboard()} title={"All Words"} />
-            <WordTable wordlist={game.wordsFound()} title={"Words Found"}/>
+          <WordTable wordlist={game.getWordsOnboard()} title="All Words" />
+          <WordTable wordlist={game.wordsFound()} title="Words Found" />
         </Flex>
-        : <Box> </Box>
-        }
-      </Box>
+      )}
       <Spacer/>
     </Container>
     </Box>
