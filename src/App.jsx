@@ -68,18 +68,18 @@ function App() {
   }
 
   return (
-    <Box minHeight='100vh' backgroundColor='gray.200'>
-      <Container minHeight='100vh' backgroundColor='white' padding='0'>
+    <Box minHeight='100dvh' backgroundColor='gray.200'>
+      <Container minHeight='100dvh' backgroundColor='white' padding='0'>
         <Text 
           fontWeight='bold' 
           fontSize='x-large' 
           bg='blue.300'
-          padding='10px' 
+          padding='5px' 
           margin={0}>Boggle
         </Text>
-        <Card margin='8px'>
+        <Card margin='5px'>
           <Text 
-            margin='.5em' 
+            margin='.3em' 
             fontWeight='bold' 
             fontSize='x-large'>Time Left: {timeLeft}
           </Text>
@@ -100,7 +100,7 @@ function App() {
                 longWord={game.getLongestWordFound()} />
             </Box>
           )}
-          <Card margin='8px' marginBottom='15px' marginTop='10px'>
+          <Card margin='8px' marginBottom='5px' marginTop='10px'>
             <Box>
               <Text 
                 fontSize='x-large' 

@@ -77,7 +77,7 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
       justifyContent="center"
       alignItems="center"
     >
-      <SimpleGrid columns={4} rows={4} spacing={2} width="100%" height="100%" marginBottom={'50px'}>
+      <SimpleGrid columns={4} rows={4} spacing={2} width="100%" height="100%" marginBottom={'10px'}>
         {letters.map((letter, index) => (
           <GridItem 
             key={index}
