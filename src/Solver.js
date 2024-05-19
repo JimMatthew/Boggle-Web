@@ -83,7 +83,7 @@ function solver(dictionary) {
 }
 
 function Node() {
-    let children =Array(26).fill(null);
+    let children = Array(26).fill(null);
     let isEndOfWord = false
 
     return {children, isEndOfWord}

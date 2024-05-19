@@ -87,11 +87,11 @@ function diceGame() {
         if (onTickCallback) onTickCallback(timeLeft);
     }
     
-    const onTick = (callback) => {  //callback to be called every tick (second) while the timer is 
-        onTickCallback = callback;  //running. It passes the current time left every tick
+    const onTick = (callback) => {  
+        onTickCallback = callback;  
     }
 
-    const onStatus = (callback) => {  //if set, will call with status updates during gameplay
+    const onStatus = (callback) => {  
         statusCallback = callback
     }
     

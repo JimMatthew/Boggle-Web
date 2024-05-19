@@ -94,7 +94,7 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
               position="relative"
               width="100%"
               height="100%"
-              padding="5%"
+              padding="1%"
             >
               <Image
                 src={blank}
@@ -113,6 +113,8 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
                 borderRadius="md"
                 paddingLeft="15px"
                 paddingRight="15px"
+                paddingTop="5px"
+                paddingBottom="5px"
                 data-index={index}
                 className='boxclass'
                 onMouseEnter={(event) => handleMouseEnter(index,event)}

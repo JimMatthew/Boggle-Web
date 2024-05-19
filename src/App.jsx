@@ -36,8 +36,13 @@ function App() {
             handleSubmit();
             return;
         }
-
         const ix = dph.isPressed(index) + 1;
+        if (ix === 1 && dph.isLastPressed(index)) {
+          setCurrWord("")
+          dph.clear()
+          setPressed(dph.getPressed())
+          return
+        }
         setCurrWord(currWord.slice(0, ix));
         dph.slicePressed(ix);
         setPressed(dph.getPressed());
@@ -63,86 +68,89 @@ function App() {
   }
 
   return (
-    <Box minHeight='100dvh' backgroundColor='gray.200'>
-      <Container minHeight='100dvh' backgroundColor='white' padding='0'>
-      <Text 
-        fontWeight={'bold'} 
-        fontSize={'x-large'} 
-        bg='blue.300'
-        padding={'10px'} 
-        margin={0}>Boggle
-      </Text>
-      <Card margin='8px'>
+    <Box minHeight='100vh' backgroundColor='gray.200'>
+      <Container minHeight='100vh' backgroundColor='white' padding='0'>
         <Text 
-          margin='.5em' 
-          fontWeight={'bold'} 
-          fontSize={'x-large'}>Time Left: {timeLeft}
+          fontWeight='bold' 
+          fontSize='x-large' 
+          bg='blue.300'
+          padding='10px' 
+          margin={0}>Boggle
         </Text>
-      </Card>
-     
-      <Box padding={'auto'}>
-        {!game.isGameOver() ?
-        <GameGrid 
-          clicked={pressed} 
-          setClicked={ handleDieClick} 
-          letters={game.getDice()} />
-        : <Box> 
-          <StatPane 
-            highScore={game.getHighScore()}
-            numGames={game.getNumGamesPlayed()} 
-            numWords={game.getNumWordsFound()} 
-            longWord={game.getLongestWordFound()} />
-          </Box>}
-          <Card margin='8px' marginBottom='15px' marginTop='10px' >
-          <Box>
-            <Text 
-              fontSize='x-large' 
-              minHeight={'1.5em'} 
-              fontWeight={'bold'}>{currWord.toUpperCase()}
-            </Text>
-          </Box>
-        
-          <Center>
-            <HStack spacing={8} >
-              <Button 
-                margin={'5px'} 
-                colorScheme='blue' 
-                onClick={ newgame }>new game
-              </Button>
-              <Button 
-                margin={'5px'} 
-                colorScheme='blue' 
-                onClick={ handleSubmit }> submit
-              </Button>
-            </HStack>
-          </Center>
-          
-          <Text fontWeight={'bold'}>
-              Words Found: { game.numWordsFound() }
-          </Text>
-          <Text fontWeight={'bold'} >
-              Score: { game.score() }
-          </Text>
-          <Text fontWeight={'bold'}>
-            Words on board: {game.getNumWordsOnBoard()}
-          </Text>
+        <Card margin='8px'>
           <Text 
-            fontSize='x-large' 
-            minHeight={'1.5em'} 
-            fontWeight={'bold'}>{status}
+            margin='.5em' 
+            fontWeight='bold' 
+            fontSize='x-large'>Time Left: {timeLeft}
           </Text>
         </Card>
-      </Box>
-      {game.isGameOver() && (
-        <Flex>
-          <WordTable wordlist={game.getWordsOnboard()} title="All Words" />
-          <WordTable wordlist={game.wordsFound()} title="Words Found" />
-        </Flex>
-      )}
-      <Spacer/>
-    </Container>
+
+        <Box padding='auto'>
+          {!game.isGameOver() ? (
+            <GameGrid 
+              clicked={pressed} 
+              setClicked={handleDieClick} 
+              letters={game.getDice()} />
+          ) : (
+            <Box> 
+              <StatPane 
+                highScore={game.getHighScore()}
+                numGames={game.getNumGamesPlayed()} 
+                numWords={game.getNumWordsFound()} 
+                longWord={game.getLongestWordFound()} />
+            </Box>
+          )}
+          <Card margin='8px' marginBottom='15px' marginTop='10px'>
+            <Box>
+              <Text 
+                fontSize='x-large' 
+                minHeight='1.5em' 
+                fontWeight='bold'>{currWord.toUpperCase()}
+              </Text>
+            </Box>
+
+            <Center>
+              <HStack spacing={8}>
+                <Button 
+                  margin='5px' 
+                  colorScheme='blue' 
+                  onClick={newgame}>New Game
+                </Button>
+                <Button 
+                  margin='5px' 
+                  colorScheme='blue' 
+                  onClick={handleSubmit}>Submit
+                </Button>
+              </HStack>
+            </Center>
+          
+            <Text fontWeight='bold'>
+              Words Found: {game.numWordsFound()}
+            </Text>
+            <Text fontWeight='bold'>
+              Score: {game.score()}
+            </Text>
+            <Text fontWeight='bold'>
+              Words on Board: {game.getNumWordsOnBoard()}
+            </Text>
+            <Text 
+              fontSize='x-large' 
+              minHeight='1.5em' 
+              fontWeight='bold'>{status}
+            </Text>
+          </Card>
+        </Box>
+
+        {game.isGameOver() && (
+          <Flex>
+            <WordTable wordlist={game.getWordsOnboard()} title="All Words" />
+            <WordTable wordlist={game.wordsFound()} title="Words Found" />
+          </Flex>
+        )}
+        <Spacer />
+      </Container>
     </Box>
-  )
+  );
 }
 
 export default App
