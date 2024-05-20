@@ -1,6 +1,6 @@
 import { useGameContext } from '../context/GameProvider';
-//import { dicePressedHandler } from '../utils/dicePressedHandler';
-import { dicePressedHandler } from '../dicePressedHandler';
+import { dicePressedHandler } from '../utils/dicePressedHandler';
+//import { dicePressedHandler } from '../dicePressedHandler';
 const dph = dicePressedHandler();
 
 const useDiceHandler = () => {
@@ -17,6 +17,12 @@ const useDiceHandler = () => {
       }
 
       const ix = dph.isPressed(index) + 1;
+      if (ix === 1 && dph.isLastPressed(index)) {
+        dispatch({ type: 'SET_CURR_WORD', payload: '' });
+        dph.clear();
+        dispatch({ type: 'SET_PRESSED', payload: dph.getPressed() });
+        return
+      }
       const newCurrWord = currWord.slice(0, ix);
       dph.slicePressed(ix);
       dispatch({ type: 'SET_CURR_WORD', payload: newCurrWord });

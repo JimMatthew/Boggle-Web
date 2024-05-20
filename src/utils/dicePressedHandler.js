@@ -1,46 +1,85 @@
-class DicePressedHandler {
-    constructor() {
-        this.pressed = Array(16).fill(false);
-        this.lastPressedIndex = -1;
-    }
+import { mapIndexesToBooleans } from "./mapIndextoBool";
 
-    isPressed(index) {
-        return this.pressed[index] ? this.pressed.indexOf(true) : -1;
-    }
+/**
+ * Handles the pressed state of dice in a 4x4 grid.
+ */
+function dicePressedHandler() {
+    const SIZE = 4;
+    let pressed = [];
 
-    isLastPressed(index) {
-        return this.lastPressedIndex === index;
-    }
+    /**
+     * Presses a die.
+     * @param {number} die - The index of the die to press.
+     */
+    const press = (die) => {
+        pressed.push(die);
+    };
 
-    isNextTo(index) {
-        if (this.lastPressedIndex === -1) return true; // First press
+    /**
+     * Clears all pressed dice.
+     */
+    const clear = () => {
+        pressed = [];
+    };
 
-        const lastRow = Math.floor(this.lastPressedIndex / 4);
-        const lastCol = this.lastPressedIndex % 4;
-        const row = Math.floor(index / 4);
-        const col = index % 4;
+    /**
+     * Slices the pressed array up to the given die index.
+     * @param {number} die - The index to slice up to.
+     */
+    const slicePressed = (die) => {
+        pressed = pressed.slice(0, die);
+    };
 
-        return Math.abs(lastRow - row) <= 1 && Math.abs(lastCol - col) <= 1;
-    }
+    /**
+     * Checks if a die is pressed.
+     * @param {number} die - The index of the die to check.
+     * @returns {boolean} The index of the die if the die is pressed, otherwise -1.
+     */
+    const isPressed = (die) => {
+        return pressed.indexOf(die);
+    };
 
-    press(index) {
-        this.pressed[index] = true;
-        this.lastPressedIndex = index;
-    }
+    /**
+     * Checks if a die is the last pressed die.
+     * @param {number} die - The index of the die to check.
+     * @returns {boolean} True if the die is the last pressed, otherwise false.
+     */
+    const isLastPressed = (die) => {
+        return pressed.indexOf(die) === pressed.length - 1;
+    };
 
-    slicePressed(ix) {
-        this.pressed.fill(false, ix);
-        this.lastPressedIndex = -1;
-    }
+    /**
+     * Gets the pressed dice as a boolean array.
+     * @returns {boolean[]} An array of booleans indicating pressed dice.
+     */
+    const getPressed = () => {
+        return mapIndexesToBooleans(pressed);
+    };
 
-    clear() {
-        this.pressed.fill(false);
-        this.lastPressedIndex = -1;
-    }
+    /**
+     * Determines if a die is next to the last pressed die.
+     * @param {number} die - The index of the die to check.
+     * @returns {boolean} True if the die is next to the last pressed die, otherwise false.
+     */
+    const isNextTo = (die) => {
+        if (pressed.length === 0) {
+            return true;
+        }
 
-    getPressed() {
-        return this.pressed;
-    }
+        const last = pressed[pressed.length - 1];
+        const Xbtt = Math.floor(die / SIZE);
+        const Ybtt = die % SIZE;
+        const Xblp = Math.floor(last / SIZE);
+        const Yblp = last % SIZE;
+
+        return (
+            (Xbtt === Xblp && Math.abs(Ybtt - Yblp) === 1) ||
+            (Ybtt === Yblp && Math.abs(Xbtt - Xblp) === 1) ||
+            (Math.abs(Xbtt - Xblp) === 1 && Math.abs(Ybtt - Yblp) === 1)
+        );
+    };
+
+    return { press, clear, slicePressed, isPressed, isNextTo, getPressed, isLastPressed };
 }
 
-export const dicePressedHandler = () => new DicePressedHandler();
+export { dicePressedHandler };
