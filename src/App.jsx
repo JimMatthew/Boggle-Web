@@ -2,70 +2,20 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 import { Box, Button, Text, Container,Flex, Spacer, Card, HStack, Center } from '@chakra-ui/react'
-import { diceGame } from './diceGame'
-import { dicePressedHandler } from './dicePressedHandler'
 import StatPane from './components/StatPane'
 import GameGrid from './components/GameGrid'
 import WordTable from './components/WordTable'
+import { GameProvider, useGameContext } from './context/GameProvider'
+import useDiceHandler from './hooks/useDiceHandler'
+import { useTimer } from './hooks/useTimer'
 
-const game = diceGame()
-const dph = dicePressedHandler()
+const AppContent = () => {
 
-function App() {
- 
-  // state of which dice are currently 'pressed' and the current word
-  // since the game doesn't care about what dice we are selecting until we actually submit a 
-  // word, we will keep track of the state here until it is submitted to the game object
-  
-  const [pressed, setPressed] = useState(Array(16).fill(false));
-  const [currWord, setCurrWord] = useState("")
-  const [timeLeft, setTimeLeft] = useState(0)
-  const [status, setStatus] = useState("")
+  const { state, dispatch } = useGameContext()
+  const { handleDieClick, handleSubmit } = useDiceHandler()
+  useTimer()
 
-  useEffect(() => {
-    game.onTick(setTimeLeft) // set the callback for the timer
-    game.onStatus(setStatus)
-    game.newGame()
-  }, [])
-
-  const handleDieClick = (index) => {
-    if (game.isGameOver()) return;
-
-    if (dph.isPressed(index) !== -1) {
-        if (dph.isPressed(index) >= 2 && dph.isLastPressed(index)) {
-            handleSubmit();
-            return;
-        }
-        const ix = dph.isPressed(index) + 1;
-        if (ix === 1 && dph.isLastPressed(index)) {
-          setCurrWord("")
-          dph.clear()
-          setPressed(dph.getPressed())
-          return
-        }
-        setCurrWord(currWord.slice(0, ix));
-        dph.slicePressed(ix);
-        setPressed(dph.getPressed());
-    } else if (dph.isNextTo(index)) {
-        dph.press(index);
-        setCurrWord(currWord + game.getDice()[index]);
-        setPressed(dph.getPressed());
-    }
-  }
-
-  const handleSubmit = () => {
-      game.submitWord(currWord)
-      setCurrWord("")
-      dph.clear()
-      setPressed(dph.getPressed())
-  }
-  
-  const newgame = () => {
-    game.newGame()
-    setCurrWord("")
-    dph.clear()
-    setPressed(dph.getPressed())
-  }
+  const newgame = () => dispatch({ type: 'NEW_GAME' })
 
   return (
     <Box minHeight='100dvh' backgroundColor='gray.200'>
@@ -81,31 +31,29 @@ function App() {
           <Text 
             margin='.3em' 
             fontWeight='bold' 
-            fontSize='x-large'>Time Left: {timeLeft}
+            fontSize='x-large'>Time Left: {state.timeLeft}
           </Text>
         </Card>
 
         <Box padding='auto'>
-          {!game.isGameOver() ? (
+          {!state.game.isGameOver() ? (
             <GameGrid 
-              clicked={pressed} 
+              clicked={state.pressed} 
               setClicked={handleDieClick} 
-              letters={game.getDice()} />
+              letters={state.game.getDice()} />
           ) : (
             <Box> 
               <StatPane 
-                highScore={game.getHighScore()}
-                numGames={game.getNumGamesPlayed()} 
-                numWords={game.getNumWordsFound()} 
-                longWord={game.getLongestWordFound()} />
+                highScore={state.game.getHighScore()}
+                numGames={state.game.getNumGamesPlayed()} 
+                numWords={state.game.getNumWordsFound()} 
+                longWord={state.game.getLongestWordFound()} />
             </Box>
           )}
           <Card margin='8px' marginBottom='5px' marginTop='10px'>
             <Box>
-              <Text 
-                fontSize='x-large' 
-                minHeight='1.5em' 
-                fontWeight='bold'>{currWord.toUpperCase()}
+              <Text fontSize='x-large' minHeight='1.5em' fontWeight='bold'>
+                {state.currWord.toUpperCase()}
               </Text>
             </Box>
 
@@ -125,26 +73,26 @@ function App() {
             </Center>
           
             <Text fontWeight='bold'>
-              Words Found: {game.numWordsFound()}
+              Words Found: {state.game.numWordsFound()}
             </Text>
             <Text fontWeight='bold'>
-              Score: {game.score()}
+              Score: {state.game.score()}
             </Text>
             <Text fontWeight='bold'>
-              Words on Board: {game.getNumWordsOnBoard()}
+              Words on Board: {state.game.getNumWordsOnBoard()}
             </Text>
             <Text 
               fontSize='x-large' 
               minHeight='1.5em' 
-              fontWeight='bold'>{status}
+              fontWeight='bold'>{state.status}
             </Text>
           </Card>
         </Box>
 
-        {game.isGameOver() && (
+        {state.game.isGameOver() && (
           <Flex>
-            <WordTable wordlist={game.getWordsOnboard()} title="All Words" />
-            <WordTable wordlist={game.wordsFound()} title="Words Found" />
+            <WordTable wordlist={state.game.getWordsOnboard()} title="All Words" />
+            <WordTable wordlist={state.game.wordsFound()} title="Words Found" />
           </Flex>
         )}
         <Spacer />
@@ -152,5 +100,11 @@ function App() {
     </Box>
   );
 }
+
+const App = () => (
+  <GameProvider>
+    <AppContent />
+  </GameProvider>
+)
 
 export default App
