@@ -1,7 +1,7 @@
 
 function solver(dictionary) {
     const root = Node()
-    const MaxWordLength = 9
+    const MaxWordLength = 16
     let board = Array.from(Array(4), () => new Array(4));
     let wordsFound = []
 

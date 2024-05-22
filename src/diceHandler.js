@@ -1,7 +1,7 @@
 /**
  * DiceHandler module to manage the rolling and retrieving of dice.
  */
-function diceHandler() {
+const diceHandler = () => {
   // Dice configuration with each die represented by a string of letters.
   const dice = [
       "aaeegn", "elrtty", "abbjoo", "abbkoo", "ehrtvw", "cimotu", "distty",

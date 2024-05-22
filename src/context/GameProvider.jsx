@@ -9,6 +9,7 @@ const initialState = {
     currWord: "",
     timeLeft: 60,
     status: "",
+    checkbox: false,
     game: new DiceGame(),
 }
 
@@ -22,6 +23,9 @@ function gameReducer(state, action) {
             return { ...state, timeLeft: action.payload }
         case 'SET_STATUS':
             return { ...state, status: action.payload }
+        case 'SET_CHECKBOX':
+            state.game.setCheckBoxState(action.payload)
+            return { ...state, checkbox: action.payload }    
         case 'NEW_GAME':
             state.game.newGame()
             return { ...state, pressed: Array(16).fill(false), currWord: "", timeLeft: 60, status: "" }

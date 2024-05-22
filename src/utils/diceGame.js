@@ -3,6 +3,7 @@ import { dictionary } from "../dictionary";
 import { scoreCard } from "../scoreCard";
 import { solver } from "../Solver";
 import { statTracker } from "../statTracker";
+import { hsBoardMaker } from "./hsBoardMaker";
 
 class DiceGame {
     constructor() {
@@ -10,22 +11,30 @@ class DiceGame {
         this.dict = dictionary();
         this.scorecard = scoreCard();
         this.solvr = solver(this.dict.getDict());
-        this.TIME = 60;
+        this.TIME = 90;
         this.timeLeft = this.TIME;
         this.intervalId = null;
         this.onTickCallback = null;
         this.statusCallback = null;
         this.wordsOnBoard = [];
         this.numWordsOnBoard = 0;
+        this.checkboxState = false;
+        this.board = []
+        this.hsMaker = hsBoardMaker(this.solvr)
     }
 
     newGame() {
-        this.dice.rollDice();
+        if (this.checkboxState) {
+            this.board = this.hsMaker.getHSBoard()
+            this.wordsOnBoard = this.solvr.solveBoard(this.board);
+        } else {
+            this.board = this.dice.rollDice();
+            this.wordsOnBoard = this.solvr.solveBoard(this.dice.getDice());
+        }
         this.scorecard.reset();
         this.resetTimer();
         this.startTimer();
         this.updateStatus("");
-        this.wordsOnBoard = this.solvr.solveBoard(this.dice.getDice());
         this.numWordsOnBoard = this.wordsOnBoard.length;
     }
 
@@ -50,7 +59,7 @@ class DiceGame {
     }
 
     getDice() {
-        return this.dice.getDice();
+        return this.board
     }
 
     getNumWordsOnBoard() {
@@ -71,6 +80,10 @@ class DiceGame {
 
     score() {
         return this.scorecard.getScore();
+    }
+
+   isHs() {
+        return this.hs;
     }
 
     submitWord(word) {
@@ -120,6 +133,14 @@ class DiceGame {
     resetTimer() {
         this.timeLeft = this.TIME;
         if (this.onTickCallback) this.onTickCallback(this.timeLeft);
+    }
+
+    setCheckBoxState(state) {
+        this.checkboxState = state
+    }
+
+    setCheckboxState() {
+        this.checkboxState = !this.checkboxState
     }
 
     onTick(callback) {

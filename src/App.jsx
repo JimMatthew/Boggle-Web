@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import './App.css'
-import { Box, Button, Text, Container,Flex, Spacer, Card, HStack, Center } from '@chakra-ui/react'
+import { Box, Button, Text, Container,Flex, Spacer, Card, HStack, Center, Checkbox } from '@chakra-ui/react'
 import StatPane from './components/StatPane'
 import GameGrid from './components/GameGrid'
 import WordTable from './components/WordTable'
@@ -16,6 +16,9 @@ const AppContent = () => {
   useTimer()
 
   const newgame = () => dispatch({ type: 'NEW_GAME' })
+  const handleCheckboxChange = (e) => {
+    dispatch({ type: 'SET_CHECKBOX', payload: e.target.checked });
+  };
 
   return (
     <Box minHeight='100dvh' backgroundColor='gray.200'>
@@ -28,11 +31,21 @@ const AppContent = () => {
           margin={0}>Boggle
         </Text>
         <Card margin='5px'>
-          <Text 
-            margin='.3em' 
-            fontWeight='bold' 
-            fontSize='x-large'>Time Left: {state.timeLeft}
-          </Text>
+          <Flex>
+            <Text 
+              paddingLeft='10px'
+              margin='.3em' 
+              fontWeight='bold' 
+              fontSize='x-large'>Time Left: {state.timeLeft}
+            </Text>
+            <Spacer />
+            <Checkbox 
+            marginRight='10px' 
+            isChecked={state.hs}
+            onChange={handleCheckboxChange}
+            >HS</Checkbox>
+          </Flex>
+          
         </Card>
 
         <Box padding='auto'>
