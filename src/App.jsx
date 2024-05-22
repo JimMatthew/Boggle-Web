@@ -17,8 +17,8 @@ const AppContent = () => {
 
   const newgame = () => dispatch({ type: 'NEW_GAME' })
   const handleCheckboxChange = (e) => {
-    dispatch({ type: 'SET_CHECKBOX', payload: e.target.checked });
-  };
+    dispatch({ type: 'SET_CHECKBOX', payload: e.target.checked })
+  }
 
   return (
     <Box minHeight='100dvh' backgroundColor='gray.200'>
@@ -84,7 +84,6 @@ const AppContent = () => {
                 </Button>
               </HStack>
             </Center>
-          
             <Text fontWeight='bold'>
               Words Found: {state.game.numWordsFound()}
             </Text>
@@ -106,7 +105,6 @@ const AppContent = () => {
           <Flex>
             <Spacer/>
             <WordTable wordlist={state.game.getWordsOnboard()} title="All Words" />
-            
             <WordTable wordlist={state.game.wordsFound()} title="Words Found" />
             <Spacer/>
           </Flex>

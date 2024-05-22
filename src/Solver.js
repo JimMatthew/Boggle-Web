@@ -1,4 +1,7 @@
-
+/**
+ * @param {dictionary} dictionary 
+ * Finds all words on a given Boggle Board
+ */
 function solver(dictionary) {
     const root = Node()
     const MaxWordLength = 16
@@ -25,10 +28,14 @@ function solver(dictionary) {
         return row >= 0 && row < 4 && col >= 0 && col < 4;
     }
 
-    const solveBoard = (b) => {
+    /**
+     * @param {Array} boggleBoard - 16 char array of board to be solved
+     * @returns {Array} - All words on the given board
+     */
+    const solveBoard = (boggleBoard) => {
         for (let i = 0; i < 4; i++) {
             for (let j = 0; j < 4; j++) {
-                board[i][j] = b[(i*4)+j]
+                board[i][j] = boggleBoard[(i*4)+j]
             }
         }
         wordsFound = []
