@@ -104,8 +104,11 @@ const AppContent = () => {
 
         {state.game.isGameOver() && (
           <Flex>
+            <Spacer/>
             <WordTable wordlist={state.game.getWordsOnboard()} title="All Words" />
+            
             <WordTable wordlist={state.game.wordsFound()} title="Words Found" />
+            <Spacer/>
           </Flex>
         )}
         <Spacer />
