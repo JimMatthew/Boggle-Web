@@ -14,7 +14,7 @@ function hsBoardMaker(solver){
         let board = []
         do {
             board = dh.rollDice()
-        } while(solver.solveBoard(board) < HS)
+        } while(solver.solveBoard(board).length < HS)
         return board
     }
     return { getHSBoard }
