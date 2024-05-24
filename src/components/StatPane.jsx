@@ -8,7 +8,7 @@ const StatPane = ({numGames, numWords, longWord, highScore}) => {
         <Center fontWeight='bold'>Stats</Center>
         <Text>High Score: {highScore}</Text>
         <Text>Games Played: {numGames}</Text>
-        <Text>Num Words: {numWords}</Text>
+        <Text>Most Words: {numWords}</Text>
         <Text>Longest Word: {longWord}</Text>
     </Card>
     )

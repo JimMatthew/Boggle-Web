@@ -59,7 +59,7 @@ const AppContent = () => {
               <StatPane 
                 highScore={state.game.getHighScore()}
                 numGames={state.game.getNumGamesPlayed()} 
-                numWords={state.game.getNumWordsFound()} 
+                numWords={state.game.mostWordsFound()} 
                 longWord={state.game.getLongestWordFound()} />
             </Box>
           )}

@@ -11,9 +11,14 @@ const statTracker = (() => {
       storage.setItem(key, value);
     };
   
-    const addGame = (score) => {
+    const addGame = (score, numWords) => {
       const highScore = parseInt(getItem('highScore', '0'), 10);
       const gamesPlayed = parseInt(getItem('gamesPlayed', '0'), 10) + 1;
+      const words = parseInt(getItem('mostWords', '0'), 10)
+
+      if (numWords > words) {
+        setItem('mostWords', numWords)
+      }
       if (score > highScore) {
         setItem('highScore', score);
       }
@@ -27,6 +32,10 @@ const statTracker = (() => {
     const getHighScore = () => {
       return parseInt(getItem('highScore', '0'), 10);
     };
+
+    const getMostWordsFound = () => {
+      return parseInt(getItem('mostWords', '0'), 10)
+    }
   
     const addWord = (word) => {
       const numWords = parseInt(getItem('numWords', '0'), 10) + 1;
@@ -52,7 +61,8 @@ const statTracker = (() => {
       getHighScore,
       addWord,
       getLongestWord,
-      getNumWords
+      getNumWords,
+      getMostWordsFound
     };
   })();
   

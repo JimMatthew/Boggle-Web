@@ -11,12 +11,10 @@ function hsBoardMaker(solver){
      * @returns a single high score Boggle Board
      */
     function getHSBoard() {
-        let wf = []
         let board = []
         do {
             board = dh.rollDice()
-            wf = solver.solveBoard(board)
-        } while(wf.length < HS)
+        } while(solver.solveBoard(board) < HS)
         return board
     }
     return { getHSBoard }

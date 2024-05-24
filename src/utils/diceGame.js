@@ -58,6 +58,10 @@ class DiceGame {
         return statTracker.getHighScore();
     }
 
+    mostWordsFound() {
+        return statTracker.getMostWordsFound();
+    }
+
     getDice() {
         return this.board
     }
@@ -115,7 +119,7 @@ class DiceGame {
                 this.timeLeft -= 1;
                 if (this.onTickCallback) this.onTickCallback(this.timeLeft);
                 if (this.timeLeft <= 0) {
-                    statTracker.addGame(this.score());
+                    statTracker.addGame(this.score(), this.numWordsFound());
                     this.stopTimer();
                     this.updateStatus("Game Over!");
                 }
