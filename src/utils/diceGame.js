@@ -11,7 +11,7 @@ class DiceGame {
         this.dict = dictionary();
         this.scorecard = scoreCard();
         this.solvr = solver(this.dict.getDict());
-        this.TIME = 90;
+        this.TIME = 120;
         this.timeLeft = this.TIME;
         this.intervalId = null;
         this.onTickCallback = null;
