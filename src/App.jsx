@@ -8,6 +8,16 @@ import WordTable from './components/WordTable'
 import { GameProvider, useGameContext } from './context/GameProvider'
 import useDiceHandler from './hooks/useDiceHandler'
 import { useTimer } from './hooks/useTimer'
+import { useColorMode } from '@chakra-ui/react'
+
+function ToggleColorMode() {
+  const { colorMode, toggleColorMode } = useColorMode()
+  return (
+      <Button colorScheme='blue' size='xs' onClick={toggleColorMode} marginTop='10px' marginRight='10px'>
+         {colorMode === 'light' ? 'Dark Mode' : 'Light Mode'}
+      </Button>
+  )
+}
 
 const AppContent = () => {
 
@@ -21,8 +31,8 @@ const AppContent = () => {
   }
 
   return (
-    <Box minHeight='100dvh' backgroundColor='gray.200'>
-      <Container minHeight='100dvh' backgroundColor='white' padding='0'>
+    <Box minHeight='100dvh' backgroundColor='var(--chakra-colors-chakra-subtle-bg)' >
+      <Container minHeight='100dvh' backgroundColor='var(--chakra-colors-chakra-body-bg)' padding='0'>
         <Text 
           fontWeight='bold' 
           fontSize='x-large' 
@@ -39,6 +49,7 @@ const AppContent = () => {
               fontSize='x-large'>Time Left: {state.timeLeft}
             </Text>
             <Spacer />
+            <ToggleColorMode />
             <Checkbox 
             marginRight='10px' 
             isChecked={state.hs}

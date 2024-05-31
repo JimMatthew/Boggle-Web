@@ -85,7 +85,7 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            color={clicked[index] ? "red" : "black"}
+            color={clicked[index] ? "var(--chakra-colors-linkedin-600)" : "black"}
             onMouseDown={(event) => handleMouseDown(index, event)}
             fontWeight="bold"
             fontSize={'x-large'}
@@ -134,5 +134,3 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
 }
 
 export default GameGrid 
-
-//backgroundColor={ clicked[index] ? "#90CDF4" : "teal.200"}
