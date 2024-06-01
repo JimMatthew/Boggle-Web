@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer } from '@chakra-ui/react';
+import React from 'react'
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer } from '@chakra-ui/react'
 
 function WordTable({ wordlist, title }) {
     // Ensure wordlist is an array before mapping over it
     if (!Array.isArray(wordlist)) {
-        console.error('Invalid wordlist provided to WordTable component.');
-        return null; 
+        console.error('Invalid wordlist provided to WordTable component.')
+        return null
     }
 
     return (
@@ -26,7 +26,7 @@ function WordTable({ wordlist, title }) {
                 </Tbody>
             </Table>
         </TableContainer>
-    );
+    )
 }
 
-export default WordTable;
+export default WordTable

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, { createContext, useContext, useReducer, useEffect,} from "react";
-import { DiceGame } from "../utils/diceGame";
+import React, { createContext, useContext, useReducer, useEffect,} from "react"
+import { DiceGame } from "../utils/diceGame"
 
 const GameContext = createContext()
 

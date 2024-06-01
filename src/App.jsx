@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import './App.css'
-import { Box, Button, Text, Container,Flex, Spacer, Card, HStack, Center, Checkbox } from '@chakra-ui/react'
+import { Box, Button, Text, Container, Flex, Spacer, Card, HStack, Center, Checkbox } from '@chakra-ui/react'
 import StatPane from './components/StatPane'
 import GameGrid from './components/GameGrid'
 import WordTable from './components/WordTable'

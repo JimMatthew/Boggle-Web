@@ -6,11 +6,11 @@ import blank from '../assets/blank.png'
 const GameGrid = ({ letters, clicked, setClicked }) => {
 
   const [isDragging, setIsDragging] = useState(false)
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [selectedIndex, setSelectedIndex] = useState(-1)
 
   const handleMouseDown = (index, event) => {
     event.cancelable && event.preventDefault()
-    setSelectedIndex(index);
+    setSelectedIndex(index)
     setIsDragging(true)
     setClicked(index)
   }
@@ -19,29 +19,28 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
     event.cancelable && event.preventDefault()
     if (isDragging) {
       setClicked(index)
-      setSelectedIndex(index);
+      setSelectedIndex(index)
     }
   }
 
   const handleMouseUp = (event) => {
     event.cancelable && event.preventDefault()
     setIsDragging(false)
-    setSelectedIndex(-1);
+    setSelectedIndex(-1)
   }
 
   const handleTouchMove = (event) => {
     event.cancelable && event.preventDefault()
     if (isDragging) {
-      const touch = event.touches[0];
-      const target = document.elementFromPoint(touch.clientX, touch.clientY);
+      const touch = event.touches[0]
+      const target = document.elementFromPoint(touch.clientX, touch.clientY)
       if (target) {
-        let boxElement = target;
-        // Traverse up the DOM to find the correct box element
+        let boxElement = target
         while (boxElement && !boxElement.dataset.index) {
-          boxElement = boxElement.parentElement;
+          boxElement = boxElement.parentElement
         }
         if (boxElement && boxElement.dataset.index) {
-          const newIndex = parseInt(boxElement.dataset.index, 10);
+          const newIndex = parseInt(boxElement.dataset.index, 10)
           if (newIndex !== selectedIndex){
             setClicked(newIndex)
             setSelectedIndex(newIndex)
@@ -59,10 +58,10 @@ const GameGrid = ({ letters, clicked, setClicked }) => {
       }
     }
     document.addEventListener('mouseup', handleMouseUpOutside)
-    document.addEventListener('touchend', handleMouseUpOutside);
+    document.addEventListener('touchend', handleMouseUpOutside)
     return () => {
       document.removeEventListener('mouseup', handleMouseUpOutside)
-      document.removeEventListener('touchend', handleMouseUpOutside);
+      document.removeEventListener('touchend', handleMouseUpOutside)
     }
   },[isDragging])
 

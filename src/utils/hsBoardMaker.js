@@ -1,15 +1,10 @@
-
 import { diceHandler } from "../diceHandler";
-/**
- * Makes high scoring Boggle Boards
- */
+
 function hsBoardMaker(solver){
 
     const HS = 120
     const dh = diceHandler()
-    /**
-     * @returns a single high score Boggle Board
-     */
+   
     function getHSBoard() {
         let board = []
         do {
