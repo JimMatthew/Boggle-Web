@@ -7,7 +7,7 @@ const GameContext = createContext()
 const initialState = {
     pressed: Array(16).fill(false),
     currWord: "",
-    timeLeft: 60,
+    timeLeft: 0,
     status: "",
     checkbox: false,
     game: new DiceGame(),

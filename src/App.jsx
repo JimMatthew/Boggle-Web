@@ -23,7 +23,7 @@ const AppContent = () => {
 
   const { state, dispatch } = useGameContext()
   const { handleDieClick, handleSubmit } = useDiceHandler()
-  useTimer()
+  //useTimer()
 
   const newgame = () => dispatch({ type: 'NEW_GAME' })
   const handleCheckboxChange = (e) => {
@@ -40,7 +40,7 @@ const AppContent = () => {
           padding='5px' 
           margin={0}>Boggle
         </Text>
-        <Card margin='5px'>
+        <Card margin='8px'>
           <Flex>
             <Text 
               paddingLeft='10px'
@@ -56,7 +56,6 @@ const AppContent = () => {
             onChange={handleCheckboxChange}
             >HS</Checkbox>
           </Flex>
-          
         </Card>
 
         <Box padding='auto'>
@@ -87,11 +86,6 @@ const AppContent = () => {
                   margin='5px' 
                   colorScheme='blue' 
                   onClick={newgame}>New Game
-                </Button>
-                <Button 
-                  margin='5px' 
-                  colorScheme='blue' 
-                  onClick={handleSubmit}>Submit
                 </Button>
               </HStack>
             </Center>
