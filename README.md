@@ -10,4 +10,5 @@ Uses browser local storage to keep basic stats, and has a toggleable dark mode.
 ![Screenshot 2024-05-24 103206](https://github.com/JimMatthew/dice/assets/28635265/5e443556-c205-438d-be58-8e949beee06c)
 
 <B>Game Over Page</B>
-![Screenshot 2024-05-24 103332](https://github.com/JimMatthew/dice/assets/28635265/42363b26-5299-4e6b-b6ae-74975abd1353)
+
+<img width="383" alt="gameoverboggle" src="https://github.com/JimMatthew/Boggle-Web/assets/28635265/de9a0fa5-311c-4aa8-a99c-677b5f101242">
