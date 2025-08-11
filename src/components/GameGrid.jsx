@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { SimpleGrid, GridItem, Box, Image } from '@chakra-ui/react'
 import blank from '../assets/blank.png'
 
